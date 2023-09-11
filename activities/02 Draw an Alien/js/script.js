@@ -1,9 +1,8 @@
 /**
- * Title of Project
- * Author Name
+ * Activity 2 : Draw an alien
+ * Kim Maurer
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * Draws an alien and adds a background
  */
 
 "use strict";
@@ -19,6 +18,7 @@ function preload() {
 /**
  * Description of setup
 */
+// Draws an alien
 function setup() {
     createCanvas(640,480);
     
