@@ -24,15 +24,13 @@ function setup() {
    
     background(29,22,59);
 
-    point(250,250);
-
-    rect(0,0,150,450);
-
+    ellipseMode(CORNER);
     ellipse(250,250,100,100);
-
-    line(0,0,500,500);
-
-    line(500,0,0,500);    
+    ellipse(250,250,80,80);
+    ellipse(250,250,60,60);
+    ellipse(250,250,60,60);
+    ellipse(250,250,40,40);
+    ellipse(250,250,20,20);   
 }
 
 
