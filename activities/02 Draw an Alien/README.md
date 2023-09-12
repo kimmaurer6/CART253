@@ -1,4 +1,5 @@
-# Template p5 project
+# Drawing an alien excercise
+Kim Maurer
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
-
+This excercise consisted of drawing an alien with simple code. I used what was explained in the activities as well as Pippin's code and instructional video. 
+It's a basic enough alien, he's nothing extraordinary haha
