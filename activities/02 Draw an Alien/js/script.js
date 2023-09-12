@@ -9,6 +9,8 @@
 
 /**
  * Description of preload
+ * 
+ * Does nothing
 */
 function preload() {
 
@@ -53,6 +55,8 @@ function setup() {
 
 /**
  * Description of draw()
+ * 
+ * Does nothing
 */
 function draw() {
 
