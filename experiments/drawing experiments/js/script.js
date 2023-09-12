@@ -1,15 +1,16 @@
 /**
- * Title of Project
- * Author Name
+ * Drawing Experiments
+ * Kim Maurer
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * Experimenting with p5's colour and drawing function
+ * 
+ * Currently draws a face on a purple background
  */
 
 "use strict";
 
 /**
- * Description of preload
+ * Does nothing
 */
 function preload() {
 
@@ -17,39 +18,32 @@ function preload() {
 
 
 /**
- * Description of setup
+ * Draws a face on the canvas
 */
 function setup() {
    createCanvas(500,500);
-   
+ 
+   // Set the background to purple
     background(29,22,59);
     
-    noStroke();
+    // Drawing the head/face
+   fill(250,200,200); // Colour of head
+   ellipse(250,250,200,200); // Shape of head
 
-    ellipseMode(CORNER);
-    
-    fill(128,0,38,100);
-    ellipse(250,250,100,100);
-    
-    fill(138,10,48,100);
-    ellipse(250,250,80,80);
-    
-    fill(148,20,58,100);
-    ellipse(250,250,60,60);
-    
-    fill(158,30,68,100)
-    ellipse(250,250,60,60);
-    
-    fill(168,40,78,100);
-    ellipse(250,250,40,40);
+   // Drawing the eyes
+   fill(0); // Colour
+   ellipse(200,250,30,30); // Shape of left eye
+   ellipse(300,250,30,30); // Shape of right eye
 
-    fill(178,50,88,100);
-    ellipse(250,250,20,20);   
+   // Drawing the mouth
+   strokeWeight(10); // Thickness of the mouth
+   line(200,300,300,300); // Drawing the mouth
 }
 
 
 /**
  * Description of draw()
+ * Does nothing
 */
 function draw() {
 
