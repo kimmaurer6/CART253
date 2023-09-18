@@ -1,15 +1,15 @@
 /**
- * Title of Project
- * Author Name
+ * Variables Experiment
+ * Kimberley Maurer
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * 
+ * playing around with variables
  */
 
 "use strict";
 
 /**
- * Description of preload
+ * does not do anything
 */
 function preload() {
 
@@ -17,16 +17,20 @@ function preload() {
 
 
 /**
- * Description of setup
+ * creating a canvas
 */
 function setup() {
+    createCanvas(windowWidth,windowHeight);
 
 }
 
 
 /**
- * Description of draw()
+ * learning about variables
 */
 function draw() {
+    background(255,0,0);
+    rectMode(CENTER);
+    rect(width/2,height/2,100,100);
 
 }
