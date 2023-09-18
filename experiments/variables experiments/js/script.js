@@ -15,7 +15,7 @@ let circle = {
     y: 250,
     size: 100,
     speed: 1,
-    fill: 0
+    fill: 
 };
 
 /**
@@ -32,14 +32,8 @@ function setup() {
 function draw() {
     background(backgroundShade);
 
-    circle.speed = random(-5,5);
     circle.x = circle.x + circle.speed;
-    circle.size = random(10,100)
 
-    circle.fill = random(0,255);
     fill(circle.fill);
     ellipse(circle.x, circle.y, circle.size);
-
-    let randomNumber = random();
-    console.log(randomNumber);
 }
