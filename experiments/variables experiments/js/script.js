@@ -11,10 +11,11 @@
 let backgroundShade = 0;
 
 let circle = {
-    x: 0,
+    x: 250,
     y: 250,
-    size: 200,
-    speed: 2
+    size: 100,
+    speed: 1,
+    fill: 0
 };
 
 /**
@@ -30,10 +31,15 @@ function setup() {
 */
 function draw() {
     background(backgroundShade);
+
+    circle.speed = random(-5,5);
     circle.x = circle.x + circle.speed;
+    circle.size = random(10,100)
+
+    circle.fill = random(0,255);
+    fill(circle.fill);
     ellipse(circle.x, circle.y, circle.size);
 
-    console.log(`circle.x ${circle.x}, circle.y ${circle.y}, circle.size ${circle.size}, circle.speed ${circle.speed}`);
-   // console.log("circle.x" + circle.x);
-
+    let randomNumber = random();
+    console.log(randomNumber);
 }
