@@ -1,3 +1,5 @@
-# Template p5 project
+I LIKE TO MOVE IT!
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+How does my project work?
+For the exercise "I like to move it," I chose to work with rectangles and circles that move around, change colour, and change size.
+In order for the project to work, the user must move their mouse around the canvas which changes the size of the circle that is being controlled with their mouse, as well as altering the colours of the rectangles. 
