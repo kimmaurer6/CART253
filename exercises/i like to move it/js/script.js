@@ -50,8 +50,8 @@ let rect4 = {
 };
 
 let circle = {
-    x: 0,
-    y: 0,
+    x: 250,
+    y: 250,
     size: 50,
     fill: 20,
 }
@@ -108,6 +108,7 @@ function draw() {
     rect1.x = rect1.x + rect1.speed; // the speed of the rectangle along the x axis
     rect1.x = constrain(rect1.x,0,width); // stops the rectangle from going out of bounds
     
+    
     // rectangle 2
     rect(rect2.x,rect2.y,rect2.width,rect2.height);
     rect2.x = rect2.x - rect2.speed; // the speed of the rectangle along the y axis
@@ -122,6 +123,4 @@ function draw() {
     rect(rect4.x,rect4.y,rect4.width,rect4.height);
     rect4.x = rect4.x - rect4.speed; // the speed of the rectangle along the y axis
     rect4.x = constrain(rect4.x,0,width); // stops the rectangle from going out of bounds
-
-   
 };
