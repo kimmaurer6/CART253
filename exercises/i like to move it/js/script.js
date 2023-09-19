@@ -108,6 +108,9 @@ function draw() {
     rect1.x = rect1.x + rect1.speed; // the speed of the rectangle along the x axis
     rect1.x = constrain(rect1.x,0,width); // stops the rectangle from going out of bounds
     
+    if(rect1.x){
+        
+    }
     
     // rectangle 2
     rect(rect2.x,rect2.y,rect2.width,rect2.height);
