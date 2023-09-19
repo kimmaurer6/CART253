@@ -22,7 +22,7 @@ let rect1 = {
     height: -140,
     speed: 1.5,
     fill: 0,
-    size: 100
+    size: 100,
 };
 
 let rect2 = {
@@ -54,7 +54,7 @@ let circle = {
     y: 250,
     size: 50,
     fill: 20,
-}
+};
 
 let circle2 = {
     x: 0,
@@ -62,7 +62,16 @@ let circle2 = {
     size: 50,
     growthRate: 1,
     speed: 3
-}
+};
+
+let r = {
+    x: 0,
+    y: 100,
+    w: 20,
+    h: 60,
+    angle: 0,
+    distance: 100
+};
 
 
 /**
@@ -70,9 +79,13 @@ let circle2 = {
 */
 function setup() {
     createCanvas(500,500);
+    angleMode(DEGREES);
    
     stroke(128,0,128); // creates the outline colour of the shapes
     strokeWeight(2.5); // thickness of the outlines
+
+    mouseX = 250;
+    mouseY = 250; // i'm sorry it's super clunky, i just wanted it to start in the center for the aesthetics of it all
 };
 
 
@@ -99,18 +112,17 @@ function draw() {
     ellipse(circle.x,circle.y,circle.size); // draws the circle
     fill(mouseX,248,200,220); // changes the colour of the rectangles based on mouse placement 
 
+
     circle.x = mouseX // changes the position of the circle along the x axis
     circle.y = mouseY // changes the position of the circle along the y axis
+
+    ellipseMode(CENTER);
 
   
     // rectangle 1
     rect(rect1.x,rect1.y,rect1.width,rect1.height);
     rect1.x = rect1.x + rect1.speed; // the speed of the rectangle along the x axis
     rect1.x = constrain(rect1.x,0,width); // stops the rectangle from going out of bounds
-    
-    if(rect1.x){
-        
-    }
     
     // rectangle 2
     rect(rect2.x,rect2.y,rect2.width,rect2.height);
