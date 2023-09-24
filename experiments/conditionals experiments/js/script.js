@@ -8,10 +8,16 @@
 
 "use strict";
 
-let caterpillar = {
-    x: 100,
+let circle = {
+    x: undefined,
+    y: undefined,
+    size: 100
+};
+
+let dangerZone = {
+    x: 250,
     y: 250,
-    segmentSize: 50
+    size: 150
 };
 
 /**
@@ -19,32 +25,37 @@ let caterpillar = {
 */
 function setup(){
     createCanvas(500,500);
+
+    circle.x = random(0,width);
+    circle.y = random(0,height);
+
+    let d = dist(circle.x,circle.y,dangerZone.x,dangerZone.y);
+    while(d < circle.size/2 + dangerZone.size/2) {
+        circle.x = random(0,width);
+        circle.y = random(0,height);
+        d = dist(circle.x,circle.y,dangerZone.x,dangerZone.y);
+    }
+   
 }
 /**
  * Description of draw()
 */
 function draw() {
   background(0);
+
+  // danger zone
+  noFill();
+  stroke(255,0,0);
+  ellipse(dangerZone.x,dangerZone.y,dangerZone.size);
+
+  // circle
+  fill(255);
   noStroke();
-  fill(100,200,100);
+  ellipse(circle.x,circle.y,circle.size);
 
-//   let x = caterpillar.x;
-//   let numSegments = 10;
-//   let segmentsDrawn = 0;
 
-//   while(segmentsDrawn < numSegments){
-//     ellipse(x,caterpillar.y,caterpillar.segmentSize);
-//     x = x + 40;
-//     segmentsDrawn++;
-//   }
 
-  let x = caterpillar.x;
-  let numSegments = 10;
-
-  for(let i = 0; i < numSegments; i++){
-    ellipse(x,caterpillar.y,caterpillar.segmentSize);
-    x = x + 40;
-  }
+  
 
    }
 
