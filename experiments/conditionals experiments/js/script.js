@@ -13,7 +13,7 @@ let circle = {
     x: 0,
     y: 250,
     size: 100,
-    speed: 5
+    speed: 2
 };
 
 /**
@@ -29,23 +29,15 @@ function draw() {
     background(backgroundShade);
 
     circle.x = circle.x + circle.speed;
+    fill(255,255,255);
 
-    if(circle.x>width){
-        circle.speed = -circle.speed;
-    };
-
-    if(circle.x<0){
-        circle.speed = -circle.speed;
-    };
-
-    if(mouseY<height/2){
-        fill(255,0,0);
-    };
-
-    if(mouseY>height/2){
-        fill(0,0,255);
-    };
+   if(!(circle.x < width/3)){
+    fill(255,0,0);
+    }
 
     ellipse(circle.x,circle.y,circle.size);
-};
+   }
+
+    
+
 
