@@ -1,3 +1,3 @@
-# Template p5 project
-
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+Exercise : Dodge-em! 
+For this exercise, I chose to keep a somewhat similar code to the original "covid activity" that we did but change things up and add extra pieces. 
+In order to play, the user must hold the mouse button down to move around (you play as the orange circle). The aim of the game is to avoid the purple circles coming at you from both the left hand side and the top of the screen. I added a speckled background with random white points appearing on the screen. Once the player dies, an image of a clown appears on the screen, along with "GAME OVER".
