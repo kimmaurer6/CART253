@@ -86,11 +86,17 @@ function draw() {
             point(x, y);
         };
 
+        if(user.x <= windowWidth/2){
+            background(195,177,225);
+        }
+        else{
+            background(250,200,152);
+        } 
+
         // the x circle we're dodging
         push();
         fill(circle1.fill.r, circle1.fill.g, circle1.fill.b);   // colour
-        stroke(255, 0, 0);
-        strokeWeight(1);
+        noStroke();
         ellipse(circle1.x, circle1.y, circle1.size);  // displays circle 1 (purple)
         pop();
 
@@ -106,8 +112,7 @@ function draw() {
         // the y circle we're dodging
         push();
         fill(circle2.fill.r, circle2.fill.g, circle2.fill.b);   // colour of circle 2
-        stroke(255, 0, 0);
-        strokeWeight(1);
+        noStroke();
         ellipse(circle2.x, circle2.y, circle2.size);  // displays circle 2 (purple)
         pop();
 
@@ -122,7 +127,9 @@ function draw() {
 
         // show user
         fill(user.fill.r, user.fill.g, user.fill.b);
+        noStroke();
         ellipse(user.x, user.y, user.size);   // displays the "user" (orange circle)
+        
 
         // getting caught by the x circle! 
         let d1 = dist(user.x, user.y, circle1.x, circle1.y);
@@ -138,6 +145,8 @@ function draw() {
        
     }
     else{
+            background(255,0,0);
+
             imageMode(CENTER);  // centers the clown image
             image(clownImage, windowWidth / 2, windowHeight / 2); // image of clown that appears once caught by circle 1
 
