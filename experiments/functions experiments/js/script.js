@@ -8,30 +8,34 @@
 
 "use strict";
 
-/**
- * Description of setup
-*/
-function setup() {
-    createCanvas(500,500); // defining the setup function, instructions
+let hello = {
+    string : `Hello, world!`,
+    x: 250,
+    y: 250,
+    vx: 5,
+    vy: 1,
+    size: 62
+};
 
-    let hotCelsius = toCelsius(100);
-    console.log('100 degrees Fahrenheit is ${hotCelsius} degrees Celsius');
+function setup () {
+    createCanvas (500,500);
+} 
 
-    let coldCelsius = toCelsius(10);
-    console.log('10 degrees Fahrenheit is ${coldCelsius} degrees Celsius');
-
-}
-
-
-
-/**
- * Description of draw()
-*/
-function draw() {
+function draw () {
     background(0);
-}
 
-function toCelsius(fahrenheit) {
-    let celsius = (fahrenheit - 32) * 5/9;
-    return celsius;
-}
+    hello.x = hello.x + hello.vx;
+    hello.y = hello.y + hello.vy;
+
+    hello.size = hello.size + 1
+    textAlign(CENTER,CENTER);
+    textSize(hello.size);
+    textStyle(BOLD);
+
+    fill(137,200,468);
+    stroke(255,0,0);
+    strokeWeight(3);
+    textFont('Times New Roman');
+
+    text(hello.string, hello.x,hello.y);
+};
