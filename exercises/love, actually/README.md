@@ -1,3 +1,3 @@
-# Template p5 project
+Love, Actually exercise.
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+This exercise follows the story of two lovers trying to find each other again and fix their relationship. The pink circle (you) chases after the blue circle as he randomly moves, either towards or away from you. The player uses the WASD keys to move and achieve one of the three possible endings. The endings include : fixing the relationship, parting ways, and one secret ending in which the player leaves the relationship. 
