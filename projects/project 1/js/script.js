@@ -40,8 +40,14 @@ let user = {
     size: 100,
     vx: 0,
     vy: 0,
-    speed: 3,
+    speed: 10,
     fill: 255
+}
+
+let home = {
+    x: undefined,
+    y: 0,
+    size: 250
 }
 
 let state = `title`; // states are : title, game, saved, caught, foundLove
@@ -61,6 +67,9 @@ function setup() {
 
     user.x = 0;
     user.y = windowHeight/2;
+
+    home.x = windowWidth/2 + home.size/2;
+    home.y = 0 + home.size/2;
 }
 
 function setupCircles(){
@@ -107,7 +116,6 @@ function title(){
     background(135,206,235);
     noStroke();
     
-    
     // text for the title screen
     push();
     textSize(55);
@@ -129,6 +137,7 @@ function game(){
     mousePressed();
     fan();
     paparazzi();
+    house();
 }
 
 function saved(){
@@ -200,6 +209,14 @@ function fan(){
     let d2 = dist(user.x, user.y, circle2.x, circle2.y);
     if(d2 < circle2.size/2 + user.size/2){
         state = `caught`;
+    }
+}
+
+function house(){
+    let d3 = dist(user.x, user.y, home.x, home.y);
+    console.log(`imghouse X:${d3}`)
+    if(d3 < home.size/2 + user.size/2){
+        state = `saved`;
     }
 }
 
