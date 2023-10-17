@@ -147,7 +147,7 @@ function title(){
     fill(100,82,86);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`Help Taylor escape the paparazzi and crazy Swiftie!`, windowWidth/2, windowHeight/2);
+    text(`Help Taylor escape the paparazzi and crazy Swiftie!\n Click the screen to begin!`, windowWidth/2, windowHeight/2);
     pop()
 }
 
