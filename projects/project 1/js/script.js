@@ -40,7 +40,7 @@ let user = {
     size: 100,
     vx: 0,
     vy: 0,
-    speed: 10,
+    speed: 4,
     fill: 255
 }
 
@@ -57,12 +57,20 @@ let heart = {
 }
 
 let state = `title`; // states are : title, game, saved, caught, foundLove
+
 let imgHouse;
 let imgHeart;
+let imgTaylor;
+let imgPaparazzi;
+let imgCrazyFan;
 
 function preload(){
+    // loads all of the images needed throughout the game
     imgHouse = loadImage(`assets/images/cartoonhouse.png`);
     imgHeart = loadImage(`assets/images/pinkheart.png`);
+    imgTaylor = loadImage(`assets/images/taylorswift.png`)
+    imgPaparazzi = loadImage(`assets/images/paparazzi.png`)
+    imgCrazyFan = loadImage(`assets/images/crazykim.png`)
 }
 
 function setup() {
@@ -74,16 +82,16 @@ function setup() {
     setupCircles();
 
     // setting the x and y of the user
-    user.x = 0;
+    user.x = 50;
     user.y = windowHeight/2;
 
     // setting the x and y of the home
     home.x = windowWidth/2 + home.size/2;
-    home.y = 0 + home.size/2;
+    home.y = 0;
 
     // setting the x and y of the heart
-    heart.x = windowWidth/2 + heart.size/2;
-    heart.y = 0 + heart.size/2
+    heart.x = windowWidth/1.15 + heart.size/2;
+    heart.y = windowHeight/1.3 + heart.size/2
     noCursor();
 }
 
@@ -93,11 +101,11 @@ function setupCircles(){
     circle1.x = windowWidth/3;
     circle2.x = 2 * windowWidth/3;
 
-    // movement of the fan / paparazzi idk yet
+    // movement of the fan 
     circle1.vx = random(-circle1.speed,circle1.speed);
     circle1.vy = random(-circle1.speed,circle1.speed);
 
-    // movement of the fan / paparazzi idk yet
+    // movement of the paparazzi 
     circle2.vx = random(-circle2.speed,circle2.speed);
     circle2.vy = random(-circle2.speed,circle2.speed);
 
@@ -109,11 +117,6 @@ function draw() {
     background(135,206,235);
     noStroke();
 
-    // drawing the circles - will be deleted later
-    ellipse(circle1.x, circle1.y, circle1.size);
-    ellipse(circle2.x, circle2.y, circle2.size);
-    ellipse(user.x, user.y, user.size);
-  
     // states of the game! 
     if(state === `title`){
         title();
@@ -144,7 +147,7 @@ function title(){
     fill(100,82,86);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`Help Taylor escape the paparazzi and crazy Swifties!`, windowWidth/2, windowHeight/2);
+    text(`Help Taylor escape the paparazzi and crazy Swiftie!`, windowWidth/2, windowHeight/2);
     pop()
 }
 
@@ -153,8 +156,8 @@ function game(){
     background(195,177,225);
     
     // images used during the game
-    image(imgHouse, windowWidth/2, 0,250,250);
-    image(imgHeart, 0, windowHeight/2, 150, 150);
+    image(imgHouse, home.x, home.y ,250,250);
+    image(imgHeart, windowWidth/1.15, windowHeight/1.3, 150, 150);
 
     // everything that needs to be called throughout the game
     move();
@@ -198,15 +201,16 @@ function caught(){
 
 function foundLove(){
    // background for the love ending
-   background()
+   background(248,200,220);
    
     // text for the the love ending
     push();
-    textSize(55);
+    textSize(45);
     fill(255,20,147);
     textAlign(CENTER);
     textFont(`Times New Roman`);
     text(`You helped Taylor find love! (but not with Travis Kelce, he sucks)\n "you are the one i have been waiting for"\n - king of my heart`, windowWidth/2, windowHeight/2);
+    pop()
 }
 
 function move(){
@@ -231,16 +235,16 @@ function move(){
     }
 }
 
-function paparazzi() {
-    // when the paparazzi interacts with the user, the bad ending is triggered
+function fan() {
+    // when the fan interacts with the user, the bad ending is triggered
     let d1 = dist(user.x, user.y, circle1.x, circle1.y);
     if(d1 < circle1.size/2 + user.size/2){
         state = `caught`;
     }
 }
 
-function fan(){
-    // when the fan interacts with the user, the bad ending is triggered
+function paparazzi(){
+    // when the paparazzi interacts with the user, the bad ending is triggered
     let d2 = dist(user.x, user.y, circle2.x, circle2.y);
     if(d2 < circle2.size/2 + user.size/2){
         state = `caught`;
@@ -265,20 +269,15 @@ function love(){
 
 function display(){
     push();
-    fill(circle1.fill.r, circle1.fill.g, circle1.fill.b);
-    noStroke();
-    ellipse(circle1.x, circle1.y, circle1.size);
+    image(imgCrazyFan, circle1.x, circle1.y, circle1.size, circle1.size);
     pop();
 
     push();
-    fill(circle2.fill.r, circle2.fill.g, circle2.fill.b);
-    noStroke();
-    ellipse(circle2.x, circle2.y, circle2.size);
+    image(imgPaparazzi, circle2.x, circle2.y, circle2.size, circle2.size);
     pop();
 
     push();
-    fill(user.fill);
-    ellipse(user.x, user.y, user.size);
+    image(imgTaylor, user.x -user.size/2, user.y - user.size/2, user.size*1.5 ,user.size*1.5);
     pop();
 }
 

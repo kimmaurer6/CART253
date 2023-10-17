@@ -1,3 +1,5 @@
 # Template p5 project
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+For my project, I did a "Taylor Swift Simulator". 
+In this game, you play as Taylor Swift as she attempts to either go home or find love but is being chased by a deranged fan and the paparazzi! You must avoid the fan and paparazzi by using the WASD keys to move around and get to your preferred ending!
+
