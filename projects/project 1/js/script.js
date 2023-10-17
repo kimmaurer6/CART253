@@ -269,7 +269,7 @@ function love(){
 
 function display(){
     push();
-    image(imgCrazyFan, circle1.x, circle1.y, circle1.size, circle1.size);
+    image(imgCrazyFan, circle1.x, circle1.y, circle1.size*2, circle1.size*1.5);
     pop();
 
     push();
