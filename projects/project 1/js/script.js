@@ -220,7 +220,7 @@ function move(){
     circle1.y = circle1.y + circle1.vy;
 
     if (circle1.x > width) {
-        circle1.x = 0;
+        circle1.x = random(0,width);
         circle1.y = random(0,height);
     }
 
@@ -230,7 +230,7 @@ function move(){
     circle2.y = circle2.y + circle2.vy;
 
     if (circle2.y > height) {
-        circle2.y = 0;
+        circle2.y = random(0,height);
         circle2.x = random(0, width);
     }
 }
