@@ -133,7 +133,7 @@ function draw() {
     else if(state === `foundLove`){
         foundLove();
     }
-    
+
     circle1.x = constrain(circle1.x, 0, windowWidth);
     circle1.y = constrain(circle1.y, 0, windowHeight);
 
@@ -233,7 +233,7 @@ function move(){
         circle1.y = random(0,height);
     }
 
-    // movement of the fans that follows the user
+    // movement of the fan that follows the user
     chaseTaylor(circle2);
     circle2.x = circle2.x + circle2.vx;
     circle2.y = circle2.y + circle2.vy;
@@ -247,7 +247,7 @@ function move(){
 function fan() {
     // when the fan interacts with the user, the bad ending is triggered
     let d1 = dist(user.x, user.y, circle1.x, circle1.y);
-    if(d1 < circle1.size/2 + user.size/2){
+    if(d1 < circle1.size/6 + user.size/6){
         state = `caught`;
     }
 }
