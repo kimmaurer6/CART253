@@ -133,7 +133,16 @@ function draw() {
     else if(state === `foundLove`){
         foundLove();
     }
+    
+    circle1.x = constrain(circle1.x, 0, windowWidth);
+    circle1.y = constrain(circle1.y, 0, windowHeight);
 
+    circle2.x = constrain(circle2.x, 0, windowWidth);
+    circle2.y = constrain(circle2.y, 0, windowHeight);
+
+    user.x = constrain(user.x, 0, windowWidth);
+    user.y = constrain(user.y, 0, windowHeight);
+    
 }
 
 function title(){
