@@ -58,6 +58,7 @@ let heart = {
 
 let state = `title`; // states are : title, game, saved, caught, foundLove
 
+// setting images 
 let imgHouse;
 let imgHeart;
 let imgTaylor;
@@ -134,6 +135,7 @@ function draw() {
         foundLove();
     }
 
+    // keeping the moving objects within frame
     circle1.x = constrain(circle1.x, 0, windowWidth);
     circle1.y = constrain(circle1.y, 0, windowHeight);
 
@@ -164,7 +166,7 @@ function game(){
     // background for the game
     background(195,177,225);
     
-    // images used during the game
+    // non-moving images used during the game
     image(imgHouse, home.x, home.y ,250,250);
     image(imgHeart, windowWidth/1.15, windowHeight/1.3, 150, 150);
 
@@ -247,7 +249,7 @@ function move(){
 function fan() {
     // when the fan interacts with the user, the bad ending is triggered
     let d1 = dist(user.x, user.y, circle1.x, circle1.y);
-    if(d1 < circle1.size/6 + user.size/6){
+    if(d1 < circle1.size/2 + user.size/2){
         state = `caught`;
     }
 }
@@ -277,6 +279,7 @@ function love(){
 }
 
 function display(){
+    // displays all of the images in place of circles
     push();
     image(imgCrazyFan, circle1.x, circle1.y, circle1.size*2, circle1.size*1.5);
     pop();
@@ -291,6 +294,7 @@ function display(){
 }
 
 function chaseTaylor(paparazzi){
+    // the paparazzi follows the user
     if (paparazzi.x<user.x) {
         paparazzi.vx = paparazzi.speed;
     } else {
@@ -305,6 +309,7 @@ function chaseTaylor(paparazzi){
 }
 
 function controlUser(){
+    // how the game is controlled
     if(keyIsDown(87)){      // w to move up
         user.vy = -user.speed;
     }
