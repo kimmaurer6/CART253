@@ -22,7 +22,7 @@ let duration = 30000;
 // empty array that is assigned to the "school" variable
 let school = [];    // create an empty array and assign it to the school variable
 
-let state = `simulation` // possible states are game, win, lose
+let state = `title` // possible states are game, win, lose
 
 let imgButterfly;
 let imgCatcher;
@@ -76,7 +76,10 @@ function draw() {
     background(166, 199, 231);
     noStroke();
 
-    if(state === `simulation`){
+    if(state === `title`){
+        title();
+    }
+    else if(state === `simulation`){
         simulation();
     }
     else if(state === `win`){
@@ -87,24 +90,31 @@ function draw() {
     }
 
 
-    for(let i = 0; i < 13; i++){
-        moveButterfly(school[i]);
-        displayButterfly(school[i]);
-}
-
-
 player.x = constrain(player.x, 0, width);
 player.y = constrain(player.y, 0, height);
 
-let elapsed = millis() - startTime;
-textFont(`Times New Roman`);
-textSize(40);
-textAlign(LEFT,TOP)
-text(floor(elapsed/1000), 0, 0);
+// let elapsed = millis() - startTime;
+// textFont(`Times New Roman`);
+// textSize(40);
+// textAlign(LEFT,TOP)
+// text(floor(elapsed/1000), 0, 0);
 
+let elapsed = millis() - startTime;
 if(elapsed > duration){
     state = `lose`
 }
+}
+
+function title(){
+    push()
+    background(255)
+
+    textSize(55);
+    fill(0);
+    textAlign(CENTER);
+    textFont(`Times New Roman`);
+    text(`Capture the butterflies in 30 seconds to win!`, windowWidth/2, windowHeight/2);
+    pop()    
 }
 
 function simulation(){
@@ -112,7 +122,24 @@ function simulation(){
    
     displayPlayer();
     controlPlayer();
+    catchButterfly();
 
+    
+
+    for(let i = 0; i < school.length; i++){
+        moveButterfly(school[i]);
+        displayButterfly(school[i]);
+}
+
+    if(school.length === 0){
+        state = `win`;
+    }
+
+    let elapsed = millis() - startTime;
+    textFont(`Times New Roman`);
+    textSize(40);
+    textAlign(LEFT,TOP)
+    text(floor(elapsed/1000), 0, 0); 
 }
 
 function win(){
@@ -125,8 +152,9 @@ function win(){
     fill(0);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`You win!`);
+    text(`You win!`, windowWidth/2, windowHeight/2);
     pop();
+    
 }
 
 function lose(){
@@ -139,7 +167,7 @@ function lose(){
     fill(0);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`You lose :(`);
+    text(`You lose :(`, windowWidth/2, windowHeight/2);
     pop();
 }
 
@@ -178,7 +206,16 @@ function displayPlayer(){
 }
 
 function catchButterfly(){
-    let d = dist(player.x, player.y, )
+    for (let i = 0; i < school.length; i++) {
+        let butterfly = school[i];
+        let d = dist(player.x, player.y, butterfly.x, butterfly.y);
+        if (d < butterfly.size/2 + player.size/2) {
+          school.splice(i, 1);
+        }
+      }
+      for (let i = 0; i < school.length; i++) {
+        let butterfly = school[i];
+      }
 }
 
 function controlPlayer(){
@@ -211,5 +248,6 @@ function checkGameOver(){
 }
 
 function mousePressed(){
+    state = `simulation`;
     startTime = millis();
 }
