@@ -6,7 +6,7 @@
 
 "use strict";
 
-let user = {
+let player= {
     x: undefined,
     y: undefined,
     size: 100,
@@ -16,14 +16,22 @@ let user = {
     fill: 255
 }
 
+let startTime = undefined;
+let duration = 30000;
+
+// empty array that is assigned to the "school" variable
 let school = [];    // create an empty array and assign it to the school variable
+
+let state = `simulation` // possible states are game, win, lose
+
 let imgButterfly;
 let imgCatcher;
 
 function preload(){
-    imgButterfly = loadImage(`assets/images/butterfly.png`)
-    imgCatcher = loadImage(`assets/images/catchingbutterfly.png`)
+    imgButterfly = loadImage(`assets/images/butterfly.png`);
+    imgCatcher = loadImage(`assets/images/catchingbutterfly.png`);
 }
+
 
 function setup() {
     createCanvas(windowWidth,windowHeight);
@@ -42,11 +50,13 @@ function setup() {
     school[11] = createButterfly(random(0, width), random(0, height));
     school[12] = createButterfly(random(0, width), random(0, height));
 
+    // setting the x and y of the player
+    player.x = windowWidth/2;
+    player.y = windowHeight/2;
 
-    // setting the x and y of the user
-    user.x = 50;
-    user.y = windowHeight/2;
+    setTimeout (checkGameOver, 2000);
 }
+
 
 function createButterfly(x,y){
     // creating the butterflies
@@ -61,27 +71,79 @@ function createButterfly(x,y){
     return butterfly;
 }
 
-function draw() {
-    background(0, 0, 139);
 
-    for(let i = 0; i < 12; i++){
+function draw() {
+    background(166, 199, 231);
+    noStroke();
+
+    if(state === `simulation`){
+        simulation();
+    }
+    else if(state === `win`){
+        win();
+    }
+    else if(state === `lose`){
+        lose();
+    }
+
+
+    for(let i = 0; i < 13; i++){
         moveButterfly(school[i]);
         displayButterfly(school[i]);
 }
 
-user.x = constrain(user.x, 0, windowWidth);
-user.y = constrain(user.y, 0, windowHeight);
+
+player.x = constrain(player.x, 0, width);
+player.y = constrain(player.y, 0, height);
+
+let elapsed = millis() - startTime;
+textFont(`Times New Roman`);
+textSize(40);
+textAlign(LEFT,TOP)
+text(floor(elapsed/1000), 0, 0);
+
+if(elapsed > duration){
+    state = `lose`
+}
 }
 
 function simulation(){
-    background(0, 0, 139);
+    background(166, 199, 231);
+   
+    displayPlayer();
+    controlPlayer();
 
-    // everything to be called
-    moveButterfly();
-    displayButterfly();
-    displayUser();
-    controlUser();
 }
+
+function win(){
+    background(193,225,193);
+    noStroke();
+
+    // text for win ending
+    push();
+    textSize(55);
+    fill(0);
+    textAlign(CENTER);
+    textFont(`Times New Roman`);
+    text(`You win!`);
+    pop();
+}
+
+function lose(){
+    background(100,82,86);
+    noStroke();
+
+    // text for lose ending
+    push();
+    textSize(55);
+    fill(0);
+    textAlign(CENTER);
+    textFont(`Times New Roman`);
+    text(`You lose :(`);
+    pop();
+}
+
+
 function moveButterfly(butterfly){
     //choose whether to change direction
     let change = random(0,1);
@@ -98,7 +160,8 @@ butterfly.x = constrain(butterfly.x, 0, width);
 butterfly.y = constrain(butterfly.y, 0, height);
 }
 
-// displayButterfly(butterfly)
+
+// display Butterfly(butterfly)
 // displays the provided butterfly on the canvas
 function displayButterfly(butterfly){
     push();
@@ -106,26 +169,47 @@ function displayButterfly(butterfly){
     pop();
 }
 
-function displayUser(){
+
+// displays the player
+function displayPlayer(){
     push();
-    image(imgCatcher, user.x, user.y, user.size/1.5, user.size/1.5);
+    image(imgCatcher, player.x, player.y, player.size/1.5, player.size);
     pop();
 }
 
-function controlUser(){
+function catchButterfly(){
+    let d = dist(player.x, player.y, )
+}
+
+function controlPlayer(){
     if(keyIsDown(87)){
-        user.vy = -user.speed;
+        player.vy = -player.speed;
     }
     else if(keyIsDown(83)){
-        user.vy = user.speed;
+        player.vy = player.speed;
+    }
+    else{
+        player.vy = 0;
     }
 
+
     if(keyIsDown(68)){
-        user.vx = user.speed;
+        player.vx = player.speed;
     }
     else if(keyIsDown(65)){
-        user.vx = -user.speed;
+        player.vx = -player.speed;
     }
-    user.x += user.vx;
-    user.y += user.vy;
+    else{
+        player.vx = 0;
+    }
+    player.x += player.vx;
+    player.y += player.vy;
+}
+
+function checkGameOver(){
+    console.log(`time up`);
+}
+
+function mousePressed(){
+    startTime = millis();
 }
