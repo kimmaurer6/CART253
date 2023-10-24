@@ -6,21 +6,36 @@
 
 "use strict";
 
-let school = [];    // create an empty array and assign it to the school variable
+let user = {
+    x: undefined,
+    y: undefined,
+    size: 100,
+    vx: 0,
+    vy: 0,
+    speed: 4
+}
 
-// our fish
-// let fish1;
-// let fish2;
-// let fish3;
-// let fish4;
+let school = [];    // create an empty array and assign it to the school variable
+let imgButterfly;
+let imgUser;
+
+function preload(){
+    imgButterfly = loadImage(`assets/images/butterfly.png`)
+    imgUser = loadImage(`assets/images/butterflycatcher.png`)
+}
 
 function setup() {
-    createCanvas(600,600);
+    createCanvas(windowWidth,windowHeight);
 
     school[0] = createFish(random(0, width), random(0, height));
     school[1] = createFish(random(0, width), random(0, height));
     school[2] = createFish(random(0, width), random(0, height));
     school[3] = createFish(random(0, width), random(0, height));
+    school[4] = createFish(random(0, width), random(0, height));
+    school[5] = createFish(random(0, width), random(0, height));
+    school[6] = createFish(random(0, width), random(0, height));
+    school[7] = createFish(random(0, width), random(0, height));
+
 
 }
 
@@ -39,9 +54,9 @@ function createFish(x,y){
 }
 
 function draw() {
-    background(0);
+    background(0, 0, 139);
 
-    for(let i = 0; i < 4; i++){
+    for(let i = 0; i < 8; i++){
         moveFish(school[i]);
         displayFish(school[i]);
 }
@@ -69,8 +84,10 @@ fish.y = constrain(fish.y, 0, height);
 // displays the provided fish on the canvas
 function displayFish(fish){
     push();
-    fill(200,100,100);
-    noStroke();
-    ellipse(fish.x, fish.y, fish.size);
+    image(imgButterfly, fish.x, fish.y, fish.size/1.5, fish.size/1.5);
     pop();
+}
+
+function displayUser(){
+
 }
