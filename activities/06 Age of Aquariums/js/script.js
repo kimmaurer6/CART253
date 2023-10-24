@@ -1,5 +1,5 @@
 /**
- * Title of Project
+ * Catch the Butterflies!
  * Kimberley Maurer
  * 
  */
@@ -17,7 +17,7 @@ let player= {
 }
 
 let startTime = undefined;
-let duration = 30000;
+let duration = 21000;
 
 // empty array that is assigned to the "school" variable
 let school = [];    // create an empty array and assign it to the school variable
@@ -93,11 +93,6 @@ function draw() {
 player.x = constrain(player.x, 0, width);
 player.y = constrain(player.y, 0, height);
 
-// let elapsed = millis() - startTime;
-// textFont(`Times New Roman`);
-// textSize(40);
-// textAlign(LEFT,TOP)
-// text(floor(elapsed/1000), 0, 0);
 
 let elapsed = millis() - startTime;
 if(elapsed > duration){
@@ -135,7 +130,9 @@ function simulation(){
         state = `win`;
     }
 
+
     let elapsed = millis() - startTime;
+    
     textFont(`Times New Roman`);
     textSize(40);
     textAlign(LEFT,TOP)
