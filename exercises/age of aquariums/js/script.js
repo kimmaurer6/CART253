@@ -37,19 +37,7 @@ function setup() {
     for (let i = 0; i < schoolSize; i++) {
         school.push(createButterfly(random(0, width), random(0, height)));
     }
-    // school[0] = createButterfly(random(0, width), random(0, height));
-    // school[1] = createButterfly(random(0, width), random(0, height));
-    // school[2] = createButterfly(random(0, width), random(0, height));
-    // school[3] = createButterfly(random(0, width), random(0, height));
-    // school[4] = createButterfly(random(0, width), random(0, height));
-    // school[5] = createButterfly(random(0, width), random(0, height));
-    // school[6] = createButterfly(random(0, width), random(0, height));
-    // school[7] = createButterfly(random(0, width), random(0, height));
-    // school[8] = createButterfly(random(0, width), random(0, height));
-    // school[9] = createButterfly(random(0, width), random(0, height));
-    // school[10] = createButterfly(random(0, width), random(0, height));
-    // school[11] = createButterfly(random(0, width), random(0, height));
-    // school[12] = createButterfly(random(0, width), random(0, height));
+
 
     // setting the x and y of the player
     player.x = windowWidth / 2;
@@ -77,6 +65,8 @@ function draw() {
     background(166, 199, 231);
     noStroke();
 
+    // creating states
+
     if (state === `title`) {
         title();
     }
@@ -90,6 +80,7 @@ function draw() {
         lose();
     }
 
+    // constraining the player to the window
 
     player.x = constrain(player.x, 0, width);
     player.y = constrain(player.y, 0, height);
@@ -99,6 +90,7 @@ function draw() {
 }
 
 function title() {
+    // text for title screen
     push()
     background(255)
 
@@ -111,6 +103,7 @@ function title() {
 }
 
 function simulation() {
+    // everything needed during the game itself
     background(166, 199, 231);
 
     displayPlayer();
@@ -141,6 +134,7 @@ function simulation() {
 }
 
 function win() {
+
     background(193, 225, 193);
     noStroke();
 
@@ -201,6 +195,7 @@ function displayPlayer() {
 }
 
 function catchButterfly() {
+    // the butterflies disappear when caught
     for (let i = 0; i < school.length; i++) {
         let butterfly = school[i];
         let d = dist(player.x, player.y, butterfly.x, butterfly.y);
@@ -214,6 +209,7 @@ function catchButterfly() {
 }
 
 function controlPlayer() {
+    // moving the player
     if (keyIsDown(87)) {
         player.vy = -player.speed;
     }
@@ -243,6 +239,7 @@ function checkGameOver() {
 }
 
 function mousePressed() {
+    // when the mouse is pressed, switches from the title screen, timer begins
     if (state === 'title') {
         state = `simulation`;
         startTime = millis();
