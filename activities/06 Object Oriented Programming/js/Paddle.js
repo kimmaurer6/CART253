@@ -7,11 +7,11 @@ class Paddle {
         this.y = height - this.height/2;
     }
 
-    move(){
+    move() {
         this.x = mouseX;
     }
 
-    display(){
+    display() {
         push();
         fill(255);
         noStroke();
