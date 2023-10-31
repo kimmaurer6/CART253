@@ -43,11 +43,4 @@ class Leaves {
         pop();
     }
 
-    catch(){
-        for(let i = 0; i < numLeaves; i++){
-        let leaf = numLeaves[i]
-        let d = dist(leaves.x, leaves.y, bin.x, bin.y);
-        if(d < lea)
-        }
-    }
 }

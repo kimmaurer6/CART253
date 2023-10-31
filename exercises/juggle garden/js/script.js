@@ -30,9 +30,6 @@ function setup() {
     bin = new Bin(300,20);
     bin.image = binImage;
 
-    // leaf = new Leaves(width/2, height, leafImage, 50, 50);
-    // leaf.image = leafImage;
-
     for(let i = 0; i < numLeaves; i++) {
         let x = random(0, width);
         let y = random(-400, -100);
@@ -45,8 +42,8 @@ function setup() {
 function draw() {
     background(112, 40, 34);
 
-    bin.move();
     bin.display();
+    bin.controlPlayer();
 
     for (let i = 0; i < leaves.length; i++){
         let leaf = leaves[i];
@@ -55,5 +52,26 @@ function draw() {
             leaf.move();
             leaf.display();
         }
+    }
+
+    text(countLeaves, windowWidth/2, windowHeight/2);
+    fill(255);
+    textSize(80);
+    textAlign(TOP,CENTER);
+    textFont(`Times New Roman`);
+}
+
+function catchLeaves(leaf){
+    if (leaf.y + leaf.size/2 > bin.y &&
+    leaf.x < bin.x + bin.size/2 && 
+    leaf.x > bin.x - bin.size/2){
+        countLeaves = countLeaves + 1; 
+        leaf.x = random(0, width);
+        leaf.y = random(-400, -100);
+    }
+
+    else if (leaf.y >= height){
+        leaf.x = random(0, width);
+        leaf.y = random(-400, -100);
     }
 }
