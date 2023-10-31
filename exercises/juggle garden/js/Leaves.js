@@ -10,8 +10,11 @@ class Leaves {
         this.ax = 0;
         this.ay = 0;
         this.maxSpeed = 10;
-        this.size = 40;
+        this.size = 10;
+        this.width = 70;
+        this.height = 70
         this.active = true;
+        this.image = leafImage;
     }
 
     gravity(force){
@@ -50,7 +53,7 @@ class Leaves {
 
     display(){
         push();
-        image(imgLeaves, this.x, this.y);
+        image(leafImage, this.x, this.y, this.width, this.height);
         pop();
     }
 }

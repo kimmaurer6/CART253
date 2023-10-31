@@ -10,6 +10,7 @@
 let gravityForce = 0.0025;
 
 let bin;
+let leaf;
 
 let leaves = [];
 let numLeaves = 10;
@@ -29,13 +30,13 @@ function setup() {
     bin = new Bin(300,20);
     bin.image = binImage;
 
-    leaf = new Leaves(width/2, height, leafImage, 50, 50);
-   
+    // leaf = new Leaves(width/2, height, leafImage, 50, 50);
+    // leaf.image = leafImage;
 
     for(let i = 0; i < numLeaves; i++) {
         let x = random(0, width);
         let y = random(-400, -100);
-        let leaves= new Leaves (x, y);
+        let leaf = new Leaves (x, y);
         leaves.push(leaf);
     }
 }
