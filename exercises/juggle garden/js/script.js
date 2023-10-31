@@ -13,7 +13,7 @@ let bin;
 let leaf;
 
 let leaves = [];
-let numLeaves = 10;
+let numLeaves = 20;
 
 let binImage;
 let leafImage; 
@@ -53,7 +53,6 @@ function draw() {
         if(leaf.active){
             leaf.gravity(gravityForce);
             leaf.move();
-            leaf.bounce(bin);
             leaf.display();
         }
     }

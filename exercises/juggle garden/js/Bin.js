@@ -2,7 +2,7 @@
 class Bin {
 
     constructor(x, y, binImage) {
-        this.width = 300;
+        this.width = 400;
         this.height = 200;
         this.x = windowWidth/2;
         this.y = windowHeight - this.height;

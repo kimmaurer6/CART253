@@ -36,24 +36,18 @@ class Leaves {
         }
     }
 
-    bounce(bin){
-        if (this.x > bin.x - bin.width/2 &&
-            this.x < bin.x + bin.width/2 &&
-            this.y + this.size/2 > bin.y - bin.height/2 &&
-            this.y - this.size/2 < bin.y + bin.height/2){
-
-            // bounce
-            let dx = this.x - bin.x;
-            this.vx = this.vx + map(dx, -bin.width/2, bin.width/2, -2, 2);
-
-            this.vy = -this.vy;
-            this.ay = 0;
-            }
-    }
 
     display(){
         push();
         image(leafImage, this.x, this.y, this.width, this.height);
         pop();
+    }
+
+    catch(){
+        for(let i = 0; i < numLeaves; i++){
+        let leaf = numLeaves[i]
+        let d = dist(leaves.x, leaves.y, bin.x, bin.y);
+        if(d < lea)
+        }
     }
 }
