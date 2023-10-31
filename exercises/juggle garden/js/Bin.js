@@ -1,30 +1,12 @@
-// class Bin{
 
-//     constructor(w,h){   
-//         this.width = w;
-//         this.height = h;
-//         this.x = 0;
-//         this.y = height - this.height/2;
-//     }
+class Bin {
 
-//     move(){
-//         this.x = mouseX;
-//     }
-
-//     display(){
-//         push();
-//         image(imgBin, this.width, this.height, this.x, this.y);
-//         pop();
-//     }
-// }
-
-class Paddle {
-
-    constructor(w,h) {
-        this.width = w;
-        this.height = h;
-        this.x = 0;
-        this.y = height - this.height/2;
+    constructor(x, y, binImage) {
+        this.width = 300;
+        this.height = 200;
+        this.x = windowWidth/2;
+        this.y = windowHeight - this.height;
+        this.image = binImage;
     }
 
     move() {
@@ -33,10 +15,7 @@ class Paddle {
 
     display() {
         push();
-        fill(255);
-        noStroke();
-        rectMode(CENTER);
-        rect(this.x, this.y, this.width, this.height);
+        image(binImage, this.x, this.y,this.width,this.height);
         pop();
     }
 }
