@@ -1,3 +1,1 @@
-# Template p5 project
-
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+Use the "A" and "D" keys to move the basket and catch at least 45 leaves in 10 seconds! 
