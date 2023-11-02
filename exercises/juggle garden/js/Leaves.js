@@ -9,7 +9,7 @@ class Leaves {
         this.vy = 0;
         this.ax = 0;
         this.ay = 0;
-        this.maxSpeed = 10;
+        this.maxSpeed = 7;
         this.size = 10;
         this.width = 70;
         this.height = 70
