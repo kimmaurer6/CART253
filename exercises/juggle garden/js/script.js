@@ -7,6 +7,7 @@
 
 "use strict";
 
+let countLeaves = 0;
 let gravityForce = 0.0025;
 
 let bin;
@@ -50,6 +51,7 @@ function draw() {
         if(leaf.active){
             leaf.gravity(gravityForce);
             leaf.move();
+            catchLeaves(leaf);
             leaf.display();
         }
     }
@@ -57,8 +59,8 @@ function draw() {
     text(countLeaves, windowWidth/2, windowHeight/2);
     fill(255);
     textSize(80);
-    textAlign(TOP,CENTER);
     textFont(`Times New Roman`);
+    textAlign(TOP,CENTER);
 }
 
 function catchLeaves(leaf){

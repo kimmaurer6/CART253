@@ -7,7 +7,7 @@ class Bin {
         this.x = windowWidth/2;
         this.y = windowHeight - this.height;
         this.image = binImage;
-        this.speed = 4;
+        this.speed = 5;
         this.vx = 0;
         this.vy = 0;
     }
