@@ -65,15 +65,17 @@ function draw() {
 function catchLeaves(leaf){
   
     if(leaf.y + leaf.size / 2 > bin.y &&
-        leaf.x < bin.x + bin.size / 2 &&
-        leaf.x > bin.x - bin.size / 2){
-            if(numLeaves  > 15){
+        leaf.x < bin.x + bin.width &&
+        leaf.x > bin.x ){
+            console.log(`nwor`)
+            if(numLeaves  <15){
                 state = `lose`;
+                numLeaves--;
             }
         else { 
             countLeaves = countLeaves + 1;
             if(countLeaves === 15){
-                state === `win`;
+                state = `win`;
             }
             leaf.x = random(0, width);
             leaf.y = random(-400, -100)
@@ -82,6 +84,7 @@ function catchLeaves(leaf){
         else if(leaf.y >= height){
             leaf.x = random(0, width);
             leaf.y = random(-400, -100);
+          //  state = `game`;
         }
 }
 
@@ -111,7 +114,7 @@ function game(){
         }
     }
 
-
+push();
     text(countLeaves, windowWidth/2, windowHeight/2);
     fill(255);
     textAlign(LEFT, TOP)

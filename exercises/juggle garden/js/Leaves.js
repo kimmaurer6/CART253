@@ -42,5 +42,4 @@ class Leaves {
         image(leafImage, this.x, this.y, this.width, this.height);
         pop();
     }
-
 }
