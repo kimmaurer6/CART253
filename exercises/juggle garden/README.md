@@ -1,1 +1,2 @@
 Use the "A" and "D" keys to move the basket and catch at least 45 leaves in 10 seconds! 
+The ghosts do not affect the gameplay, they're just there to look super cute and add something more to the game!
