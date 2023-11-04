@@ -7,7 +7,7 @@
 "use strict";
 
 let startTime = undefined;
-let duration = 10 * 1000;
+let duration = 10000;
 
 let countLeaves = 0;
 let gravityForce = 0.0025;
@@ -74,14 +74,14 @@ function setup() {
     }
 
     // timer
-    setTimeout(checkGameOver, 10000);
+    // setTimeout(checkGameOver, 10000);
 
 }
 
 
 function draw() {
     background(112, 40, 34);
-
+    noStroke();
     // the states
     if (state === `title`) {
         title();
@@ -145,16 +145,20 @@ function catchGhosts(ghost) {
 
 
 function title() {
+    push();
+    
     background(200, 217, 240);
     noStroke();
 
+  
+
     // text for title screen
-    push();
+    
     textSize(55);
     fill(0);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`catch at least 50 leaves in 10 seconds to win!\n click to start!`, windowWidth / 2, windowHeight / 2);
+    text(`catch at least 51 leaves in 10 seconds to win!\n click to start!`, windowWidth / 2, windowHeight / 2);
     pop();
 
 }
@@ -248,5 +252,7 @@ function mousePressed() {
     if (state === `title`) {
         state = `game`;
         startTime = millis();
+    // timer
+        setTimeout(checkGameOver, 10000);
     }
 }
