@@ -7,7 +7,7 @@
 "use strict";
 
 let startTime = undefined;
-let duration = 10000;
+let duration = 10 * 1000;
 
 let countLeaves = 0;
 let gravityForce = 0.0025;
@@ -156,6 +156,7 @@ function title() {
     textFont(`Times New Roman`);
     text(`catch at least 50 leaves in 10 seconds to win!\n click to start!`, windowWidth / 2, windowHeight / 2);
     pop();
+
 }
 
 function game() {
@@ -191,6 +192,8 @@ function game() {
     textSize(50);
     text(countLeaves, 0, 0);
     textFont(`Times New Roman`);
+
+    let elapsed = millis() - startTime;
 
 }
 
