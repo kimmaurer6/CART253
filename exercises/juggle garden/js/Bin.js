@@ -30,7 +30,6 @@ class Bin {
             this.vx = 0
         }
         this.x += this.vx;
-
     }
 
 }

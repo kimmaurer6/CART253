@@ -22,7 +22,7 @@ let leaves = [];
 let numLeaves = 50;
 
 let ghosts = [];
-let numGhosts = 30;
+let numGhosts = 20;
 
 let binImage;
 let leafImage;
@@ -33,6 +33,7 @@ let ghostImage;
 let state = `title`
 
 function preload() {
+    // all images used in the game
     binImage = loadImage(`assets/images/bin.png`);
     leafImage = loadImage(`assets/images/leaf.png`);
     fireworkImage = loadImage(`assets/images/firework.gif`);
@@ -44,15 +45,19 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
+    // attaching bin to the class
     bin = new Bin(300, 20);
     bin.image = binImage;
 
-    firework = new Fireworks(0,0);
+    // attaching firework to the clsas
+    firework = new Fireworks(0, 0);
     firework.image = fireworkImage;
 
-    sad = new Sad(0,0);
+    // attachin sad face to the class
+    sad = new Sad(0, 0);
     sad.image = sadImage;
 
+    // attaching the leaves to the class
     for (let i = 0; i < numLeaves; i++) {
         let x = random(0, width);
         let y = random(-400, -100);
@@ -60,6 +65,7 @@ function setup() {
         leaves.push(leaf);
     }
 
+    // attaching the ghosts to the class
     for (let i = 0; i < numGhosts; i++) {
         let x = random(0, width);
         let y = random(-400, -100);
@@ -67,6 +73,7 @@ function setup() {
         ghosts.push(ghost);
     }
 
+    // timer
     setTimeout(checkGameOver, 10000);
 
 }
@@ -75,6 +82,7 @@ function setup() {
 function draw() {
     background(112, 40, 34);
 
+    // the states
     if (state === `title`) {
         title();
     }
@@ -91,14 +99,18 @@ function draw() {
         lose();
     }
 
-    let elapsed = millis() - startTime;
-   
+    // removes cursor from the screen
     noCursor();
+
+    // constrains player to screen
+    bin.x = constrain(bin.x, 0, windowWidth);
+    bin.x = constrain(bin.x, 0, windowWidth / 1.35)
+
 }
 
 
 function catchLeaves(leaf) {
-
+    // the overlap to catch the leaves in the bin and add to the counter
     if (leaf.y + leaf.size / 2 > bin.y &&
         leaf.x < bin.x + bin.width &&
         leaf.x > bin.x) {
@@ -114,20 +126,21 @@ function catchLeaves(leaf) {
     }
 }
 
-function catchGhosts(ghost){
+function catchGhosts(ghost) {
+    // the overlap to catch the ghosts in the bin but not add to the counter
     if (ghost.y + ghost.size / 2 > bin.y &&
         ghost.x < bin.x + bin.width &&
-        ghost.x > bin.x){
-        
+        ghost.x > bin.x) {
+
         ghost.x = random(0, width);
         ghost.y = random(-400, -100);
     }
 
-    if (ghost.y >= height){
+    if (ghost.y >= height) {
         ghost.x = random(0, width);
         ghost.y = random(-400, -100);
     }
-        
+
 }
 
 
@@ -141,11 +154,14 @@ function title() {
     fill(0);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`catch at least 25 leaves in 10 seconds to win!\n click to start!`, windowWidth / 2, windowHeight / 2)
+    text(`catch at least 50 leaves in 10 seconds to win!\n click to start!`, windowWidth / 2, windowHeight / 2);
     pop();
 }
 
 function game() {
+    // everything called in the game
+
+    // everything called for the leaves in the game
     for (let i = 0; i < leaves.length; i++) {
 
         let leaf = leaves[i];
@@ -156,11 +172,12 @@ function game() {
             leaf.display();
         }
     }
-    
-    for (let i = 0; i < ghosts.length; i++){
-        
+
+    // everything called for the ghosts in the game
+    for (let i = 0; i < ghosts.length; i++) {
+
         let ghost = ghosts[i];
-        if(ghost.active){
+        if (ghost.active) {
             ghost.gravity(gravityForce);
             ghost.move();
             catchGhosts(ghost);
@@ -168,25 +185,13 @@ function game() {
         }
     }
 
-    //push();
+    // the leaf counter in the top left
     fill(255);
-    textAlign(LEFT, TOP)
+    textAlign(LEFT, TOP);
     textSize(50);
     text(countLeaves, 0, 0);
     textFont(`Times New Roman`);
-    // pop();
 
-    push();
-    let elapsed = millis() - startTime;
-    textAlign(RIGHT, TOP);
-    textSize(40);
-    text(floor(elapsed / 1000), 0, 0);
-    if (elapsed > duration) {
-        state = `lose`;
-    }
-    textFont(`Times New Roman`);
-    pop();
-   
 }
 
 function win() {
@@ -202,6 +207,7 @@ function win() {
     text(`you caught all of the leaves needed!`, windowWidth / 2, windowHeight / 2);
     pop();
 
+    // displaying fireworks on win screen
     firework.display();
 }
 
@@ -218,16 +224,17 @@ function lose() {
     text(`you did not catch enough leaves :(`, windowWidth / 2, windowHeight / 2);
     pop();
 
+    // displaying sad face on lose screen
     sad.display();
 }
 
 function checkGameOver() {
-    console.log(countLeaves)
-    if (countLeaves < 25) {
+    // checking if the game is over
+    if (countLeaves < 50) {
         state = `lose`;
-        // numLeaves--;
     }
-    if (countLeaves > 25) {
+
+    if (countLeaves > 50) {
         state = `win`;
     }
 }
@@ -238,5 +245,5 @@ function mousePressed() {
     if (state === `title`) {
         state = `game`;
         startTime = millis();
-        }
+    }
 }
