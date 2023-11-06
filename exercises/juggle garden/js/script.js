@@ -146,14 +146,14 @@ function catchGhosts(ghost) {
 
 function title() {
     push();
-    
+
     background(200, 217, 240);
     noStroke();
 
-  
+
 
     // text for title screen
-    
+
     textSize(55);
     fill(0);
     textAlign(CENTER);
@@ -252,7 +252,7 @@ function mousePressed() {
     if (state === `title`) {
         state = `game`;
         startTime = millis();
-    // timer
+        // timer
         setTimeout(checkGameOver, 10000);
     }
 }
