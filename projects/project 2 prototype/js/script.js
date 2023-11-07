@@ -14,6 +14,9 @@ let bullets = [];
 let bullet;
 let bulletImage;
 
+let cooldown = 0;
+let cooldownFrames = 30;
+
 let sonicTitleImage;
 let sonicLevel1Image;
 let sonicLevel2Image;
@@ -39,7 +42,7 @@ function setup() {
     sonic = new Sonic(0, 500);
     sonic.image = sonicImage;
 
-    bullet = new Bullets();
+    bullet = new Bullet();
     bullet.image = bulletImage;
 
 }
@@ -58,7 +61,7 @@ function draw() {
         sonic.display();
         sonic.controlPlayer();
     }
-    else if (state === `level 3`) {
+    else if (state === `level3`) {
         level3();
         sonic.display();
         sonic.controlPlayer();
@@ -70,18 +73,18 @@ function draw() {
         lose();
     }
 
-    if (keyIsDown(32)) {
-        bullets.push(new Bullets(sonic.x, sonic.y))
+    if (keyIsDown(32)&& cooldown === 0) {
+        bullets.push(new Bullet(sonic.x, sonic.y))
+        cooldown = cooldownFrames;
     }
+
+    cooldown = constrain(cooldown - 1, 0, cooldownFrames);
+
     for (let bullet of bullets) {
         bullet.move();
     }
 
-    // let bullet = 100;
-    // while(bullet = 1){
-    //     bullet = bullet + 1;
-    // }
-    
+
     sonic.x = constrain(sonic.x, 0, width / 1.1);
     sonic.y = constrain(sonic.y, height / 1.55, height / 1.14);
 }
