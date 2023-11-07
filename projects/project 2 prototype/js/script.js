@@ -1,25 +1,27 @@
 /**
- * Title of Project
- * Author Name
+ * Project 2
+ * Kimberley Maurer
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
  */
 
 "use strict";
 
-/**
- * Description of preload
-*/
-function preload() {
 
+let sonic;
+let sonicImage;
+
+function preload() {
+    sonicImage = loadImage(`assets/images/sonic.png`)
 }
 
 
-/**
- * Description of setup
-*/
+
 function setup() {
+    createCanvas(800, 800);
+    background(255);
+
+    sonic = new Sonic(400,100);
+    sonic.image = sonicImage;
 
 }
 
@@ -28,5 +30,5 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-
+    sonic.display();
 }
