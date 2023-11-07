@@ -1,12 +1,12 @@
 class Sonic {
     constructor(x,y,sonicImage){
-        this.x = 0;
-        this.y = 0;
+        this.x = 400;
+        this.y = 550;
         this.vx = 0;
         this.vy = 0;
-        //this.width = ;
-       // this.height = 200;
-        this.speed = 7;
+        this.width = 100;
+        this.height = 100;
+        this.speed = 5;
         this.active = true;
         this.image = sonicImage;
     }
@@ -29,10 +29,10 @@ class Sonic {
         }
         this.x += this.vx;
 
-        if(keyIsDown(87)) {     // w
+        if(keyIsDown(83)) {     // w
             this.vy = this.speed;
         }
-        else if(keyIsDown(83)) {    // s
+        else if(keyIsDown(87)) {    // s
             this.vy = -this.speed;
         } 
         else{
