@@ -1,11 +1,11 @@
 class Sonic {
     constructor(x,y,sonicImage){
-        this.x = 400;
-        this.y = 100;
+        this.x = 0;
+        this.y = 0;
         this.vx = 0;
         this.vy = 0;
-        this.width = 200;
-        this.height = 200;
+        //this.width = ;
+       // this.height = 200;
         this.speed = 7;
         this.active = true;
         this.image = sonicImage;
@@ -18,18 +18,27 @@ class Sonic {
     }
 
     controlPlayer() {
-        if(keyIsDown(39)){      // right arrow
+        if(keyIsDown(68)){      // d
             this.vx = this.speed;
         }
-        else if(keyIsDown(37)) {    // left arrow
+        else if(keyIsDown(65)) {    // a
             this.vx = -this.speed;
         }
+        else{
+            this.vx = 0;
+        }
+        this.x += this.vx;
 
-        if(keyIsDown(38)) {     // up arrow
+        if(keyIsDown(87)) {     // w
             this.vy = this.speed;
         }
-        else if(keyIsDown(40)) {    // down arrow
+        else if(keyIsDown(83)) {    // s
             this.vy = -this.speed;
         } 
+        else{
+            this.vy = 0;
+        }
+        this.y += this.vy;
     }
+
 }
