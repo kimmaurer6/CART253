@@ -16,7 +16,7 @@ class Bullet {
         this.x += this.vx;
         this.y += this.vy;
         image(bulletImage, this.x, this.y, this.width, this.height, this.speed);
-        
+
     }
-    
+
 }

@@ -1,5 +1,5 @@
 class Sonic {
-    constructor(x,y,sonicImage){
+    constructor(x, y, sonicImage) {
         this.x = 400;
         this.y = 550;
         this.vx = 0;
@@ -18,24 +18,24 @@ class Sonic {
     }
 
     controlPlayer() {
-        if(keyIsDown(68)){      // d
+        if (keyIsDown(68)) {      // d
             this.vx = this.speed;
         }
-        else if(keyIsDown(65)) {    // a
+        else if (keyIsDown(65)) {    // a
             this.vx = -this.speed;
         }
-        else{
+        else {
             this.vx = 0;
         }
         this.x += this.vx;
 
-        if(keyIsDown(83)) {     // w
+        if (keyIsDown(83)) {     // w
             this.vy = this.speed;
         }
-        else if(keyIsDown(87)) {    // s
+        else if (keyIsDown(87)) {    // s
             this.vy = -this.speed;
-        } 
-        else{
+        }
+        else {
             this.vy = 0;
         }
         this.y += this.vy;

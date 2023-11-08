@@ -73,7 +73,7 @@ function draw() {
         lose();
     }
 
-    if (keyIsDown(32)&& cooldown === 0) {
+    if (keyIsDown(32) && cooldown === 0) {
         bullets.push(new Bullet(sonic.x, sonic.y))
         cooldown = cooldownFrames;
     }
@@ -92,14 +92,14 @@ function draw() {
 function title() {
     push();
     image(sonicTitleImage, 0, 0, width, height);
-   // noStroke();
+    // noStroke();
 
     // text for title screen
     textSize(50);
     fill(255);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`Sonic Invaders!!`, width/2, height/2);
+    text(`Sonic Invaders!!`, width / 2, height / 2);
     pop();
 }
 
