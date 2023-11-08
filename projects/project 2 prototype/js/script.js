@@ -15,7 +15,7 @@ let bullet;
 let bulletImage;
 
 let cooldown = 0;
-let cooldownFrames = 30;
+let cooldownFrames = 25;
 
 let sonicTitleImage;
 let sonicLevel1Image;
@@ -92,14 +92,14 @@ function draw() {
 function title() {
     push();
     image(sonicTitleImage, 0, 0, width, height);
-    noStroke();
+   // noStroke();
 
     // text for title screen
     textSize(50);
-    fill(0);
+    fill(255);
     textAlign(CENTER);
-    text(`Help Sonic defeat Dr. Eggman and his army!!`);
     textFont(`Times New Roman`);
+    text(`Sonic Invaders!!`, width/2, height/2);
     pop();
 }
 
