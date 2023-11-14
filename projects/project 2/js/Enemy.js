@@ -1,7 +1,7 @@
 class Enemy {
     constructor(x, y, enemyImage) {
-        this.x = 400;
-        this.y = 100;
+        this.x = x;
+        this.y = y;
         this.vx = 0;
         this.vy = 0; 
         this.ax = 0;

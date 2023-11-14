@@ -15,6 +15,7 @@ let bullet;
 let bulletImage;
 
 let enemies = [];
+let numEnemies = 5;
 let enemy;
 let enemyImage;
 
@@ -30,6 +31,7 @@ let sonicLevel3Image;
 let state = `title`;
 
 function preload() {
+    // all images used
     sonicImage = loadImage(`assets/images/sonic.png`);
     sonicTitleImage = loadImage(`assets/images/title-background.png`);
     sonicLevel1Image = loadImage(`assets/images/level1.png`);
@@ -45,62 +47,86 @@ function setup() {
     createCanvas(1000, 730);
     image(sonicTitleImage);
 
+    // introducing sonic class
     sonic = new Sonic(0, 500);
     sonic.image = sonicImage;
 
+    // introducing bullet class
     bullet = new Bullet();
     bullet.image = bulletImage;
 
-    enemy = new Enemy();
-    enemy.image = enemyImage;
+
+    for (let i = 0; i < numEnemies; i++) {
+        let enemyX = random(0, width);
+        let enemyY = random(0, height / 3);
+
+        // introducing enemy class
+        let enemy = new Enemy(enemyX, enemyY, enemyImage);
+        enemies.push(enemy);
+        //  enemy.image = enemyImage;
+    }
 
 }
 
 function draw() {
     if (state === `title`) {
+        // title screen
         title();
     }
     else if (state === `level1`) {
+        // all things to be used / displayed in the first level
         level1();
         sonic.display();
         sonic.controlPlayer();
-        enemy.display();
+        for (let enemy of enemies) {
+            enemy.display();
+        }
     }
     else if (state === `level2`) {
+        // all things to be used / displayed in the second level
         level2();
         sonic.display();
         sonic.controlPlayer();
-        enemy.display();
+        for (let enemy of enemies) {
+            enemy.display();
+        }
     }
     else if (state === `level3`) {
+        // all things to be used / displayed in the final level    
         level3();
         sonic.display();
         sonic.controlPlayer();
+        enemy.display();
     }
     else if (state === `win`) {
+        // win screen
         win();
     }
     else if (state === `lose`) {
+        // lose screen
         lose();
     }
 
     if (keyIsDown(32) && cooldown === 0) {
+        // if spacebar is pressed, user shoots bullets
         bullets.push(new Bullet(sonic.x, sonic.y))
         cooldown = cooldownFrames;
     }
 
+    // constrains how many bullets are shot at once
     cooldown = constrain(cooldown - 1, 0, cooldownFrames);
 
     for (let bullet of bullets) {
         bullet.move();
     }
 
-
+    // constrain player to the screen
     sonic.x = constrain(sonic.x, 0, width / 1.1);
     sonic.y = constrain(sonic.y, height / 1.55, height / 1.14);
 }
 
 function title() {
+    // background for title screen
     push();
     image(sonicTitleImage, 0, 0, width, height);
     // noStroke();
@@ -115,6 +141,7 @@ function title() {
 }
 
 function level1() {
+    // background for level one
     push();
     image(sonicLevel1Image, 0, 0, width, height);
     pop();
@@ -122,27 +149,37 @@ function level1() {
 }
 
 function level2() {
+    // background for level two
     push();
     image(sonicLevel2Image, 0, 0, width, height);
     pop();
 }
 
 function level3() {
+    // background for level three
     push();
     image(sonicLevel3Image, 0, 0, width, height);
     pop();
 }
 
 function lose() {
+    // text and background for lose screen
     push();
 
 }
 
 function win() {
+    // text and background for win screen
+
+}
+
+function enemyHit() {
+    // when the enemy is hit twice, it dies
 
 }
 
 function mousePressed() {
+    // game switches from title to level one when the mouse is pressed
     if (state = `title`) {
         state = `level1`;
     }
