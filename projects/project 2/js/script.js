@@ -14,6 +14,10 @@ let bullets = [];
 let bullet;
 let bulletImage;
 
+let enemies = [];
+let enemy;
+let enemyImage;
+
 let cooldown = 0;
 let cooldownFrames = 25;
 
@@ -21,6 +25,7 @@ let sonicTitleImage;
 let sonicLevel1Image;
 let sonicLevel2Image;
 let sonicLevel3Image;
+
 
 let state = `title`;
 
@@ -31,6 +36,7 @@ function preload() {
     sonicLevel2Image = loadImage(`assets/images/level2.png`);
     sonicLevel3Image = loadImage(`assets/images/level3.png`);
     bulletImage = loadImage(`assets/images/bullet.png`);
+    enemyImage = loadImage(`assets/images/buzzer.png`);
 }
 
 
@@ -45,6 +51,9 @@ function setup() {
     bullet = new Bullet();
     bullet.image = bulletImage;
 
+    enemy = new Enemy();
+    enemy.image = enemyImage;
+
 }
 
 function draw() {
@@ -55,11 +64,13 @@ function draw() {
         level1();
         sonic.display();
         sonic.controlPlayer();
+        enemy.display();
     }
     else if (state === `level2`) {
         level2();
         sonic.display();
         sonic.controlPlayer();
+        enemy.display();
     }
     else if (state === `level3`) {
         level3();
@@ -113,12 +124,13 @@ function level1() {
 function level2() {
     push();
     image(sonicLevel2Image, 0, 0, width, height);
-
+    pop();
 }
 
 function level3() {
     push();
     image(sonicLevel3Image, 0, 0, width, height);
+    pop();
 }
 
 function lose() {
