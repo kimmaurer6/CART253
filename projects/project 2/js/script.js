@@ -66,12 +66,21 @@ function setup() {
         //  enemy.image = enemyImage;
     }
 
+    enemies.vx = enemies.speed;
+    enemies.vy = enemies.speed;
+
+    enemies.x = enemies.x + enemies.vx;
+    enemies.y = enemies.y + enemies.vy;
+
 }
 
 function draw() {
     if (state === `title`) {
         // title screen
         title();
+    }
+    else if (state === `game`) {
+        game();
     }
     else if (state === `level1`) {
         // all things to be used / displayed in the first level
@@ -105,6 +114,7 @@ function draw() {
     else if (state === `lose`) {
         // lose screen
         lose();
+        background(0);
     }
 
     if (keyIsDown(32) && cooldown === 0) {
@@ -123,6 +133,10 @@ function draw() {
     // constrain player to the screen
     sonic.x = constrain(sonic.x, 0, width / 1.1);
     sonic.y = constrain(sonic.y, height / 1.55, height / 1.14);
+
+    // enemies.x = enemies.x + enemies.vx;
+    // enemies.y = enemies.y + enemies.vy;
+
 }
 
 function title() {
@@ -139,13 +153,18 @@ function title() {
     text(`Sonic Invaders!!`, width / 2, height / 2);
     pop();
 }
+function game() {
+    enemyHit();
+    level1();
+    level2();
+    level3();
+}
 
 function level1() {
     // background for level one
     push();
     image(sonicLevel1Image, 0, 0, width, height);
     pop();
-
 }
 
 function level2() {
@@ -165,16 +184,23 @@ function level3() {
 function lose() {
     // text and background for lose screen
     push();
-
+    background(0);
+    pop();
 }
 
 function win() {
     // text and background for win screen
-
+    push();
+    background(155);
+    pop();
 }
 
 function enemyHit() {
     // when the enemy is hit twice, it dies
+    let d = dist(bullet.x, bullet.y, enemy.x, enemy.y);
+    if (d < enemy.size / 2 + bullet.size / 2) {
+        enemies.splice(i, 1);
+    };
 
 }
 
