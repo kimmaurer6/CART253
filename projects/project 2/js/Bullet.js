@@ -10,6 +10,7 @@ class Bullet {
         this.width = 13;
         this.height = 15;
         this.size = this.width;
+        this.active = true;
         this.image = bulletImage;
     }
 

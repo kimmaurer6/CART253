@@ -23,14 +23,13 @@ let numEnemies = 5;
 let enemy;
 let enemyImage;
 
-// let enemies2 = [];
-// let numEnemies2
+let spinners = [];
+let numSpinners = 5;
+let spinner;
+let spinnerImage;
 
 let cooldown = 0;
 let cooldownFrames = 25;
-
-// let checkbox;
-// let shoot;
 
 let sonicTitleImage;
 let sonicLevel1Image;
@@ -49,7 +48,8 @@ function preload() {
     sonicLevel3Image = loadImage(`assets/images/level3.png`);
     bulletImage = loadImage(`assets/images/bullet.png`);
     enemyImage = loadImage(`assets/images/buzzer.png`);
-    enemyBulletImage = loadImage(`assets/images/enemybullet.png`);
+    // enemyBulletImage = loadImage(`assets/images/enemybullet.png`);
+    spinnerImage = loadImage(`assets/images/spinner.png`)
 }
 
 
@@ -86,10 +86,8 @@ function setup() {
     bullet = new Bullet();
     bullet.image = bulletImage;
 
-    enemyBullet = new EnemyBullet();
-    enemyBullet.image = enemyBulletImage;
 
-
+    // creating level one enemies (buzzers)
     for (let i = 0; i < numEnemies; i++) {
         let enemyX = random(0, width);
         let enemyY = random(0, height / 3);
@@ -100,11 +98,14 @@ function setup() {
         //  enemy.image = enemyImage;
     }
 
-    enemies.vx = enemies.speed;
-    enemies.vy = enemies.speed;
+    // creating level two enemies (spinners)
+    for (let i = 1; i < numSpinners; i++){
+        let spinnerX = random(0, width);
+        let spinnerY = random(0, height / 3);
 
-    enemies.x = enemies.x + enemies.vx;
-    enemies.y = enemies.y + enemies.vy;
+        let spinner = new Spinner(spinnerX, spinnerY, spinnerImage);
+        spinners.push(spinner);
+    }
 
 }
 
@@ -126,18 +127,21 @@ function draw() {
                 enemyHit(enemy, bullet);
             }
             enemy.display();
+            enemy.move();
         }
-        if (state === `level1` && numEnemies === 0) {
-            state = `level2`
-        };
+        level1Up();
     }
     else if (state === `level2`) {
         // all things to be used / displayed in the second level
         level2();
         sonic.display();
         sonic.controlPlayer();
-        for (let enemy of enemies) {
-            enemy.display();
+        for (let spinner of spinners) {
+            for(let bullet of bullets){
+                enemyHit(spinner,bullet)
+            }
+            spinner.display();
+            spinner.move();
         }
     }
     else if (state === `level3`) {
@@ -163,10 +167,6 @@ function draw() {
         cooldown = cooldownFrames;
     }
 
-    // if (keyIsDown(77) && cooldown === 0) { //m
-    //     enemyBullets.push(new EnemyBullet(enemy.x, enemy.y))
-    //     cooldown = cooldownFrames;
-    // }
 
 
 
@@ -185,9 +185,8 @@ function draw() {
     sonic.x = constrain(sonic.x, 0, width / 1.1);
     sonic.y = constrain(sonic.y, height / 1.55, height / 1.14);
 
-    // enemies.x = enemies.x + enemies.vx;
-    // enemies.y = enemies.y + enemies.vy;
-
+    // enemy.x = constrain(enemy.x, 0, width / 1.1);
+    // enemy.y = constrain(enemy.y, height, height / 1.5);
 }
 
 function title() {
@@ -204,23 +203,18 @@ function title() {
     text(`Sonic Invaders!!`, width / 2, height / 2);
     pop();
 }
-function game() {
-    enemyHit();
-    sonicHit();
-    // level1();
-    // level2();
-    // level3();
-    // nextLevel();
-    if (state === `level1` && numEnemies === 0) {
-        state = `level2`
-    };
-}
-
-// function nextLevel() {
-//     if (state === `level1` && enemy.health === 0) {
-//         state = `level2`
-//     };
+// function game() {
+//     enemyHit();
+//     sonicHit();
+//     level1Up();
+//     // level2();
+//     // level3();
+//     // nextLevel();
+//     // if (state === `level1` && numEnemies === 0) {
+//     //     state = `level2`
+//     // };
 // }
+
 
 function level1() {
     // background for level one
@@ -260,29 +254,62 @@ function win() {
 function enemyHit(enemy, bullet) {
     // when the enemy is hit twice, it dies
     let d = dist(bullet.x, bullet.y, enemy.x, enemy.y);
-    if (d < enemy.size / 2 + bullet.size / 2) {
+    if (d < enemy.size / 2.5 + bullet.size * 1.5) {
         enemy.health -= 1;
     };
     if (enemy.health <= 0) {
         enemy.active = false;
-        //enemies.splice(i, 1);
-    }
-    // for (let i = 0; i < enemies.length; i++) {
-    //     let enemy = enemies[i];
-    // }
-
-}
-
-function userHit() {
-    let d1 = dist(bullet.x, bullet.y, sonic.x, sonic.y);
-    if (d < sonic.size / 2 + bullet.size / 2) {
-        sonic.health -= 1;
     }
 }
+
+function enemyHit(spinner, bullet) {
+    // when the enemy is hit twice, it dies
+    let d = dist(bullet.x, bullet.y, spinner.x, spinner.y);
+    if (d < spinner.size / 2.5 + bullet.size * 1.5) {
+        spinner.health -= 1;
+    };
+    if (spinner.health <= 0) {
+        spinner.active = false;
+    }
+}
+
+function level1Up() {
+    if (state === `level1` && countActiveEnemies() === 0) {
+        state = `level2`
+    }
+    console.log(`yay`);
+}
+
+function level2Up(){
+    if(state === `level2` && countActiveSpinners() === 0){
+        state = `level3`
+    }
+}
+
+function countActiveEnemies() {
+    let count = 0;
+    for (let enemy of enemies) {
+        if (enemy.active) {
+            count += 1
+        }
+    }
+    return count;
+}
+
+function countActiveSpinners(){
+    let count = 0;
+    for (let spinner of spinners) {
+        if (spinner.active) {
+            count += 1
+        }
+    }
+    return count;
+}
+
 
 function mousePressed() {
     // game switches from title to level one when the mouse is pressed
-    if (state = `title`) {
+    if (state === `title`) {
         state = `level1`;
     }
 }
