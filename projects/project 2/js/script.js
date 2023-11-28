@@ -155,6 +155,7 @@ function title() {
 }
 function game() {
     enemyHit();
+    sonicHit();
     level1();
     level2();
     level3();
@@ -199,9 +200,23 @@ function enemyHit() {
     // when the enemy is hit twice, it dies
     let d = dist(bullet.x, bullet.y, enemy.x, enemy.y);
     if (d < enemy.size / 2 + bullet.size / 2) {
-        enemies.splice(i, 1);
+        enemy.health -= 1;
     };
+    if(enemy.health <= 0){
+        enemy.active = false;
+        enemies.splice(i,1);
+    }
+    for (let i = 0; i < enemies.length; i++) {
+        let enemy = enemies[i];
+    }
 
+}
+
+function userHit() {
+    let d1 = dist(bullet.x, bullet.y, sonic.x, sonic.y);
+    if (d < sonic.size / 2 + bullet.size / 2) {
+        sonic.health -= 1;
+    }
 }
 
 function mousePressed() {

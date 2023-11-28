@@ -10,6 +10,11 @@ class Enemy {
         this.width = 90;
         this.height = 90;
         this.image = enemyImage;
+        this.health = 2;
+        this.active = true;
+        if(this.health <= 0){
+            this.active = false;
+        }
     }
 
     display() {

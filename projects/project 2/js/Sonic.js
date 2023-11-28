@@ -9,6 +9,7 @@ class Sonic {
         this.speed = 5;
         this.active = true;
         this.image = sonicImage;
+        this.health = 2;
     }
 
     display() {
