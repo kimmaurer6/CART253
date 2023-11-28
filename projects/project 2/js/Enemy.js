@@ -13,9 +13,6 @@ class Enemy {
         this.image = enemyImage;
         this.health = 2;
         this.active = true;
-        // if(this.health <= 0){
-        //     this.active = false;
-        // }
     }
 
     display() {
@@ -37,7 +34,7 @@ class Enemy {
         this.y = this.y + this.vy;
 
         this.x = constrain(this.x, 0, 600);
-        // this.y = constrain(this.y, )
+       // this.y = constrain(this.y, 0, 600);
 
         // this(this.x, this.y, this.size);
     }

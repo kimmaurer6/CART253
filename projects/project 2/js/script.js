@@ -28,6 +28,28 @@ let numSpinners = 5;
 let spinner;
 let spinnerImage;
 
+// let bossbot1 = {
+//     x: x,
+//     y: y,
+//     size: (90, 60),
+//     vx: 0,
+//     vy: 0,
+//     speed: 2
+// }
+// let bossbot2 = {
+//     x: x,
+//     y: y,
+//     size: (90, 60),
+//     vx: 0,
+//     vy: 0,
+//     speed: 2
+// }
+// let bossbot1Image;
+// let bossbot2Image;
+
+let eggman;
+let eggmanImage;
+
 let cooldown = 0;
 let cooldownFrames = 25;
 
@@ -48,8 +70,10 @@ function preload() {
     sonicLevel3Image = loadImage(`assets/images/level3.png`);
     bulletImage = loadImage(`assets/images/bullet.png`);
     enemyImage = loadImage(`assets/images/buzzer.png`);
-    // enemyBulletImage = loadImage(`assets/images/enemybullet.png`);
-    spinnerImage = loadImage(`assets/images/spinner.png`)
+    spinnerImage = loadImage(`assets/images/spinner.png`);
+    bossbot1Image = loadImage(`assets/images/bossbot.png`);
+    bossbot2Image = loadImage(`assets/images/bossbot.png`);
+    eggmanImage = loadImage(`assets/images/eggman.png`);
 }
 
 
@@ -57,26 +81,6 @@ function preload() {
 function setup() {
     createCanvas(1000, 730);
     image(sonicTitleImage);
-    // noLoop();
-
-    // shoot = createShoot(`shoot if loop()`);
-    // shoot.position(enemyBullet.x, enemyBullet.y);
-    // shoot.mousePressed()
-
-    // function shootBullet() {
-    //     if (isLooping()) {
-    //         enemyBullet.move()
-    //     }
-    // }
-
-    // function checkLoop() {
-    //     if (this.checked()) {
-    //         loop();
-    //     }
-    //     else {
-    //         noLoop();
-    //     }
-    // }
 
     // introducing sonic class
     sonic = new Sonic(0, 500);
@@ -99,7 +103,7 @@ function setup() {
     }
 
     // creating level two enemies (spinners)
-    for (let i = 1; i < numSpinners; i++){
+    for (let i = 1; i < numSpinners; i++) {
         let spinnerX = random(0, width);
         let spinnerY = random(0, height / 3);
 
@@ -113,9 +117,6 @@ function draw() {
     if (state === `title`) {
         // title screen
         title();
-    }
-    else if (state === `game`) {
-        game();
     }
     else if (state === `level1`) {
         // all things to be used / displayed in the first level
@@ -137,19 +138,20 @@ function draw() {
         sonic.display();
         sonic.controlPlayer();
         for (let spinner of spinners) {
-            for(let bullet of bullets){
-                enemyHit(spinner,bullet)
+            for (let bullet of bullets) {
+                enemyHit(spinner, bullet)
             }
             spinner.display();
             spinner.move();
         }
+        level2Up();
     }
     else if (state === `level3`) {
         // all things to be used / displayed in the final level    
         level3();
         sonic.display();
         sonic.controlPlayer();
-        enemy.display();
+
     }
     else if (state === `win`) {
         // win screen
@@ -185,8 +187,11 @@ function draw() {
     sonic.x = constrain(sonic.x, 0, width / 1.1);
     sonic.y = constrain(sonic.y, height / 1.55, height / 1.14);
 
-    // enemy.x = constrain(enemy.x, 0, width / 1.1);
-    // enemy.y = constrain(enemy.y, height, height / 1.5);
+    // bossbot1.x = constrain(bossbot1.x, 0, 250);
+    // bossbot2.x = constrain(bossbot2.x, 450, 600);
+
+    // bossbot1.y = constrain(bossbot1.y, 350, 600);
+    // bossbot2.y = constrain(bossbot2.y, 350, 600);
 }
 
 function title() {
@@ -254,7 +259,7 @@ function win() {
 function enemyHit(enemy, bullet) {
     // when the enemy is hit twice, it dies
     let d = dist(bullet.x, bullet.y, enemy.x, enemy.y);
-    if (d < enemy.size / 2.5 + bullet.size * 1.5) {
+    if (d < enemy.size / 2.5 + bullet.size / 1) {
         enemy.health -= 1;
     };
     if (enemy.health <= 0) {
@@ -265,7 +270,7 @@ function enemyHit(enemy, bullet) {
 function enemyHit(spinner, bullet) {
     // when the enemy is hit twice, it dies
     let d = dist(bullet.x, bullet.y, spinner.x, spinner.y);
-    if (d < spinner.size / 2.5 + bullet.size * 1.5) {
+    if (d < spinner.size / 2.5 + bullet.size / 1) {
         spinner.health -= 1;
     };
     if (spinner.health <= 0) {
@@ -280,8 +285,8 @@ function level1Up() {
     console.log(`yay`);
 }
 
-function level2Up(){
-    if(state === `level2` && countActiveSpinners() === 0){
+function level2Up() {
+    if (state === `level2` && countActiveSpinners() === 0) {
         state = `level3`
     }
 }
@@ -296,7 +301,7 @@ function countActiveEnemies() {
     return count;
 }
 
-function countActiveSpinners(){
+function countActiveSpinners() {
     let count = 0;
     for (let spinner of spinners) {
         if (spinner.active) {
