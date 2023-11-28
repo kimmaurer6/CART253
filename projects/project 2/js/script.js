@@ -14,13 +14,23 @@ let bullets = [];
 let bullet;
 let bulletImage;
 
+let enemyBullets = [];
+let enemyBullet;
+let enemyBulletImage;
+
 let enemies = [];
 let numEnemies = 5;
 let enemy;
 let enemyImage;
 
+// let enemies2 = [];
+// let numEnemies2
+
 let cooldown = 0;
 let cooldownFrames = 25;
+
+// let checkbox;
+// let shoot;
 
 let sonicTitleImage;
 let sonicLevel1Image;
@@ -39,6 +49,7 @@ function preload() {
     sonicLevel3Image = loadImage(`assets/images/level3.png`);
     bulletImage = loadImage(`assets/images/bullet.png`);
     enemyImage = loadImage(`assets/images/buzzer.png`);
+    enemyBulletImage = loadImage(`assets/images/enemybullet.png`);
 }
 
 
@@ -46,6 +57,26 @@ function preload() {
 function setup() {
     createCanvas(1000, 730);
     image(sonicTitleImage);
+    // noLoop();
+
+    // shoot = createShoot(`shoot if loop()`);
+    // shoot.position(enemyBullet.x, enemyBullet.y);
+    // shoot.mousePressed()
+
+    // function shootBullet() {
+    //     if (isLooping()) {
+    //         enemyBullet.move()
+    //     }
+    // }
+
+    // function checkLoop() {
+    //     if (this.checked()) {
+    //         loop();
+    //     }
+    //     else {
+    //         noLoop();
+    //     }
+    // }
 
     // introducing sonic class
     sonic = new Sonic(0, 500);
@@ -54,6 +85,9 @@ function setup() {
     // introducing bullet class
     bullet = new Bullet();
     bullet.image = bulletImage;
+
+    enemyBullet = new EnemyBullet();
+    enemyBullet.image = enemyBulletImage;
 
 
     for (let i = 0; i < numEnemies; i++) {
@@ -88,8 +122,14 @@ function draw() {
         sonic.display();
         sonic.controlPlayer();
         for (let enemy of enemies) {
+            for (let bullet of bullets) {
+                enemyHit(enemy, bullet);
+            }
             enemy.display();
         }
+        if (state === `level1` && numEnemies === 0) {
+            state = `level2`
+        };
     }
     else if (state === `level2`) {
         // all things to be used / displayed in the second level
@@ -123,12 +163,23 @@ function draw() {
         cooldown = cooldownFrames;
     }
 
+    // if (keyIsDown(77) && cooldown === 0) { //m
+    //     enemyBullets.push(new EnemyBullet(enemy.x, enemy.y))
+    //     cooldown = cooldownFrames;
+    // }
+
+
+
     // constrains how many bullets are shot at once
     cooldown = constrain(cooldown - 1, 0, cooldownFrames);
 
     for (let bullet of bullets) {
         bullet.move();
     }
+
+    // for (let enemyBullet of enemyBullets) {
+    //     enemyBullet.move();
+    // }
 
     // constrain player to the screen
     sonic.x = constrain(sonic.x, 0, width / 1.1);
@@ -156,10 +207,20 @@ function title() {
 function game() {
     enemyHit();
     sonicHit();
-    level1();
-    level2();
-    level3();
+    // level1();
+    // level2();
+    // level3();
+    // nextLevel();
+    if (state === `level1` && numEnemies === 0) {
+        state = `level2`
+    };
 }
+
+// function nextLevel() {
+//     if (state === `level1` && enemy.health === 0) {
+//         state = `level2`
+//     };
+// }
 
 function level1() {
     // background for level one
@@ -196,19 +257,19 @@ function win() {
     pop();
 }
 
-function enemyHit() {
+function enemyHit(enemy, bullet) {
     // when the enemy is hit twice, it dies
     let d = dist(bullet.x, bullet.y, enemy.x, enemy.y);
     if (d < enemy.size / 2 + bullet.size / 2) {
         enemy.health -= 1;
     };
-    if(enemy.health <= 0){
+    if (enemy.health <= 0) {
         enemy.active = false;
-        enemies.splice(i,1);
+        //enemies.splice(i, 1);
     }
-    for (let i = 0; i < enemies.length; i++) {
-        let enemy = enemies[i];
-    }
+    // for (let i = 0; i < enemies.length; i++) {
+    //     let enemy = enemies[i];
+    // }
 
 }
 

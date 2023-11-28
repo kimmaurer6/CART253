@@ -9,6 +9,7 @@ class Bullet {
         this.speed = 8;
         this.width = 13;
         this.height = 15;
+        this.size = this.width;
         this.image = bulletImage;
     }
 
