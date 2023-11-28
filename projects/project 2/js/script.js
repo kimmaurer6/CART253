@@ -135,7 +135,7 @@ function draw() {
     else if (state === `level2`) {
         // all things to be used / displayed in the second level
         level2();
-        sonic.display();
+        // sonic.display();
         sonic.controlPlayer();
         for (let spinner of spinners) {
             for (let bullet of bullets) {
@@ -163,25 +163,19 @@ function draw() {
         background(0);
     }
 
-    if (keyIsDown(32) && cooldown === 0) {
-        // if spacebar is pressed, user shoots bullets
-        bullets.push(new Bullet(sonic.x, sonic.y))
-        cooldown = cooldownFrames;
-    }
-
-
-
+    
 
     // constrains how many bullets are shot at once
     cooldown = constrain(cooldown - 1, 0, cooldownFrames);
 
-    for (let bullet of bullets) {
+    for (let i = bullets.length - 1; i >= 0; i--){
+        let bullet = bullets[i];
         bullet.move();
+        if(bullet.y < 0){
+            bullets.splice(i,1);
+        }
     }
 
-    // for (let enemyBullet of enemyBullets) {
-    //     enemyBullet.move();
-    // }
 
     // constrain player to the screen
     sonic.x = constrain(sonic.x, 0, width / 1.1);
@@ -256,22 +250,27 @@ function win() {
     pop();
 }
 
-function enemyHit(enemy, bullet) {
-    // when the enemy is hit twice, it dies
-    let d = dist(bullet.x, bullet.y, enemy.x, enemy.y);
-    if (d < enemy.size / 2.5 + bullet.size / 1) {
-        enemy.health -= 1;
-    };
-    if (enemy.health <= 0) {
-        enemy.active = false;
-    }
-}
+// function enemyHit(enemy, bullet) {
+//     // when the enemy is hit twice, it dies
+//     let d = dist(bullet.x, bullet.y, enemy.x, enemy.y);
+//     if (d < enemy.size / 2.5 + bullet.size / 1) {
+//         enemy.health -= 1;
+//     };
+//     if (enemy.health <= 0) {
+//         enemy.active = false;
+//     }
+// }
 
 function enemyHit(spinner, bullet) {
+    if(!spinner.active){
+        return;
+    }
     // when the enemy is hit twice, it dies
     let d = dist(bullet.x, bullet.y, spinner.x, spinner.y);
-    if (d < spinner.size / 2.5 + bullet.size / 1) {
+    if (d < spinner.size / 2 + bullet.size / 2) {
         spinner.health -= 1;
+        let index = bullets.indexOf(bullet);
+        bullets.splice(index,1);
     };
     if (spinner.health <= 0) {
         spinner.active = false;
@@ -279,6 +278,7 @@ function enemyHit(spinner, bullet) {
 }
 
 function level1Up() {
+    // the switch between level 1 and 2
     if (state === `level1` && countActiveEnemies() === 0) {
         state = `level2`
     }
@@ -286,12 +286,14 @@ function level1Up() {
 }
 
 function level2Up() {
+    // the switch between level 2 and 3
     if (state === `level2` && countActiveSpinners() === 0) {
         state = `level3`
     }
 }
 
 function countActiveEnemies() {
+    // checking the array for how many buzzers are left
     let count = 0;
     for (let enemy of enemies) {
         if (enemy.active) {
@@ -302,6 +304,7 @@ function countActiveEnemies() {
 }
 
 function countActiveSpinners() {
+    // checking the array for how many spinners are left
     let count = 0;
     for (let spinner of spinners) {
         if (spinner.active) {

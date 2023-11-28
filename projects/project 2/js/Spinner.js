@@ -18,6 +18,7 @@ class Spinner {
 display() {
     if (this.active) {
         push();
+        imageMode(CENTER);
         image(spinnerImage, this.x, this.y, this.width, this.height, this.speed, this.vx, this.vy);
         pop();
     }

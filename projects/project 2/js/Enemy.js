@@ -18,6 +18,7 @@ class Enemy {
     display() {
         if (this.active) {
             push();
+            imageMode(CENTER);
             image(enemyImage, this.x, this.y, this.width, this.height, this.speed, this.vx, this.vy);
             pop();
         }

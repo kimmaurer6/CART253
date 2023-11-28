@@ -40,6 +40,12 @@ class Sonic {
             this.vy = 0;
         }
         this.y += this.vy;
+
+        if (keyIsDown(32) && cooldown === 0) {
+            // if spacebar is pressed, user shoots bullets
+            bullets.push(new Bullet(sonic.x, sonic.y))
+            cooldown = cooldownFrames;
+        }
     }
 
 }
