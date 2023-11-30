@@ -24,15 +24,14 @@ let enemy;
 let enemyImage;
 
 let spinners = [];
-let numSpinners = 5;
+let numSpinners = 6;
 let spinner;
 let spinnerImage;
 
-let bossBot1;
-let bossBot1Image;
-
-let bossBot2;
-let bossBot2Image;
+let bossBots = [];
+let numBossBots = 3;
+let bossBot;
+let bossBotImage;
 
 let eggman;
 let eggmanImage;
@@ -44,6 +43,7 @@ let sonicTitleImage;
 let sonicLevel1Image;
 let sonicLevel2Image;
 let sonicLevel3Image;
+let levelUpImage;
 
 
 let state = `title`;
@@ -58,9 +58,9 @@ function preload() {
     bulletImage = loadImage(`assets/images/bullet.png`);
     enemyImage = loadImage(`assets/images/buzzer.png`);
     spinnerImage = loadImage(`assets/images/spinner.png`);
-    bossBot1Image = loadImage(`assets/images/bossbot.png`);
-    bossBot2Image = loadImage(`assets/images/bossbot.png`);
+    bossBotImage = loadImage(`assets/images/bossbot.png`);
     eggmanImage = loadImage(`assets/images/eggman.png`);
+    levelUpImage = loadImage(`assets/images/levelup.png`);
 }
 
 
@@ -77,12 +77,6 @@ function setup() {
     bullet = new Bullet();
     bullet.image = bulletImage;
 
-    // introducing bosstbot 1 class
-    bossBot1 = new BossBot1();
-    bossBot1.image = bossBot1Image;
-    let bossBot1X = random(0, 250);
-    let bossBot1Y = random(0, height / 3);
-    //enemies.push(bossBot1);
 
 
     // creating level one enemies (buzzers)
@@ -103,6 +97,15 @@ function setup() {
 
         let spinner = new Spinner(spinnerX, spinnerY, spinnerImage);
         spinners.push(spinner);
+    }
+
+    // creating level three enemies (bossbots)
+    for (let i = 1; i < numBossBots; i++) {
+        let bossBotX = random(0, width);
+        let bossBotY = random(0, height / 3);
+
+        let bossBot = new BossBot(bossBotX, bossBotY, bossBotImage);
+        bossBots.push(bossBot);
     }
 
 }
@@ -145,7 +148,14 @@ function draw() {
         level3();
         sonic.display();
         sonic.controlPlayer();
-        bossBot1.display();
+        for (let bossBot of bossBots) {
+            for (let bullet of bullets) {
+                enemyHit(bossBot, bullet)
+            }
+            bossBot.display();
+            bossBot.move();
+        }
+
 
     }
     else if (state === `win`) {
@@ -204,6 +214,12 @@ function level1() {
     push();
     image(sonicLevel1Image, 0, 0, width, height);
     pop();
+}
+
+function nextLevel1() {
+    // level up screen
+    push()
+
 }
 
 function level2() {
@@ -292,6 +308,17 @@ function countActiveSpinners() {
     let count = 0;
     for (let spinner of spinners) {
         if (spinner.active) {
+            count += 1
+        }
+    }
+    return count;
+}
+
+function countActiveBossBots() {
+    // checking the array for how many bossbots are left
+    let count = 0;
+    for (let bossBot of bossBots) {
+        if (bossBot.active) {
             count += 1
         }
     }
