@@ -1,5 +1,5 @@
-class Enemy {
-    constructor(x, y, enemyImage) {
+class BossBot2 {
+    constructor(x, y, bossBot2Image) {
         this.x = x;
         this.y = y;
         this.vx = 0;
@@ -10,7 +10,7 @@ class Enemy {
         this.width = 90;
         this.height = 90;
         this.size = this.width;
-        this.image = enemyImage;
+        this.image = bossBot2Image;
         this.health = 2;
         this.active = true;
     }
@@ -19,7 +19,7 @@ class Enemy {
         if (this.active) {
             push();
             imageMode(CENTER);
-            image(enemyImage, this.x, this.y, this.width, this.height, this.speed, this.vx, this.vy);
+            image(bossBot2Image, this.x, this.y, this.width, this.height, this.speed, this.vx, this.vy);
             pop();
         }
     }
@@ -34,11 +34,7 @@ class Enemy {
         this.x = this.x + this.vx;
         this.y = this.y + this.vy;
 
-        this.x = constrain(this.x, 0, 600);
-       // this.y = constrain(this.y, 0, 600);
+        this.x = constrain(this.x, 450, 600);
 
-        // this(this.x, this.y, this.size);
     }
 }
-
-

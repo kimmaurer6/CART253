@@ -28,24 +28,11 @@ let numSpinners = 5;
 let spinner;
 let spinnerImage;
 
-// let bossbot1 = {
-//     x: x,
-//     y: y,
-//     size: (90, 60),
-//     vx: 0,
-//     vy: 0,
-//     speed: 2
-// }
-// let bossbot2 = {
-//     x: x,
-//     y: y,
-//     size: (90, 60),
-//     vx: 0,
-//     vy: 0,
-//     speed: 2
-// }
-// let bossbot1Image;
-// let bossbot2Image;
+let bossBot1;
+let bossBot1Image;
+
+let bossBot2;
+let bossBot2Image;
 
 let eggman;
 let eggmanImage;
@@ -71,8 +58,8 @@ function preload() {
     bulletImage = loadImage(`assets/images/bullet.png`);
     enemyImage = loadImage(`assets/images/buzzer.png`);
     spinnerImage = loadImage(`assets/images/spinner.png`);
-    bossbot1Image = loadImage(`assets/images/bossbot.png`);
-    bossbot2Image = loadImage(`assets/images/bossbot.png`);
+    bossBot1Image = loadImage(`assets/images/bossbot.png`);
+    bossBot2Image = loadImage(`assets/images/bossbot.png`);
     eggmanImage = loadImage(`assets/images/eggman.png`);
 }
 
@@ -89,6 +76,13 @@ function setup() {
     // introducing bullet class
     bullet = new Bullet();
     bullet.image = bulletImage;
+
+    // introducing bosstbot 1 class
+    bossBot1 = new BossBot1();
+    bossBot1.image = bossBot1Image;
+    let bossBot1X = random(0, 250);
+    let bossBot1Y = random(0, height / 3);
+    //enemies.push(bossBot1);
 
 
     // creating level one enemies (buzzers)
@@ -151,6 +145,7 @@ function draw() {
         level3();
         sonic.display();
         sonic.controlPlayer();
+        bossBot1.display();
 
     }
     else if (state === `win`) {
@@ -163,16 +158,16 @@ function draw() {
         background(0);
     }
 
-    
+
 
     // constrains how many bullets are shot at once
     cooldown = constrain(cooldown - 1, 0, cooldownFrames);
 
-    for (let i = bullets.length - 1; i >= 0; i--){
+    for (let i = bullets.length - 1; i >= 0; i--) {
         let bullet = bullets[i];
         bullet.move();
-        if(bullet.y < 0){
-            bullets.splice(i,1);
+        if (bullet.y < 0) {
+            bullets.splice(i, 1);
         }
     }
 
@@ -202,17 +197,6 @@ function title() {
     text(`Sonic Invaders!!`, width / 2, height / 2);
     pop();
 }
-// function game() {
-//     enemyHit();
-//     sonicHit();
-//     level1Up();
-//     // level2();
-//     // level3();
-//     // nextLevel();
-//     // if (state === `level1` && numEnemies === 0) {
-//     //     state = `level2`
-//     // };
-// }
 
 
 function level1() {
@@ -262,7 +246,7 @@ function win() {
 // }
 
 function enemyHit(spinner, bullet) {
-    if(!spinner.active){
+    if (!spinner.active) {
         return;
     }
     // when the enemy is hit twice, it dies
@@ -270,7 +254,7 @@ function enemyHit(spinner, bullet) {
     if (d < spinner.size / 2 + bullet.size / 2) {
         spinner.health -= 1;
         let index = bullets.indexOf(bullet);
-        bullets.splice(index,1);
+        bullets.splice(index, 1);
     };
     if (spinner.health <= 0) {
         spinner.active = false;

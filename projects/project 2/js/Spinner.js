@@ -6,7 +6,7 @@ class Spinner {
     this.vy = 0;
     this.ax = 0;
     this.ay = 0;
-    this.speed = 2;
+    this.speed = 4;
     this.width = 90;
     this.height = 90;
     this.size = this.width;
