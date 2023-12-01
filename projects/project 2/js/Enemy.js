@@ -34,8 +34,8 @@ class Enemy {
         this.x = this.x + this.vx;
         this.y = this.y + this.vy;
 
-        this.x = constrain(this.x, 0, 600);
-       // this.y = constrain(this.y, 0, 600);
+        this.x = constrain(this.x, 100, 600);
+        this.y = constrain(this.y, 100, height / 3);
 
         // this(this.x, this.y, this.size);
     }

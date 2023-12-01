@@ -34,9 +34,8 @@ move() {
     this.x = this.x + this.vx;
     this.y = this.y + this.vy;
 
-    this.x = constrain(this.x, 0, 600);
-    // this.y = constrain(this.y, )
-
+    this.x = constrain(this.x, 100, 600);
+    this.y = constrain(this.y, 100, height / 3);
     // this(this.x, this.y, this.size);
 }
 }

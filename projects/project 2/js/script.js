@@ -24,15 +24,17 @@ let enemy;
 let enemyImage;
 
 let spinners = [];
-let numSpinners = 6;
+let numSpinners = 5;
 let spinner;
 let spinnerImage;
 
 let bossBots = [];
-let numBossBots = 3;
+let numBossBots = 2;
 let bossBot;
 let bossBotImage;
 
+let eggmen = [];
+let numEggmen = 1;
 let eggman;
 let eggmanImage;
 
@@ -77,7 +79,8 @@ function setup() {
     bullet = new Bullet();
     bullet.image = bulletImage;
 
-
+    let eggman = new Eggman();
+    eggmen.push(eggman);
 
     // creating level one enemies (buzzers)
     for (let i = 0; i < numEnemies; i++) {
@@ -91,7 +94,7 @@ function setup() {
     }
 
     // creating level two enemies (spinners)
-    for (let i = 1; i < numSpinners; i++) {
+    for (let i = 0; i < numSpinners; i++) {
         let spinnerX = random(0, width);
         let spinnerY = random(0, height / 3);
 
@@ -100,12 +103,21 @@ function setup() {
     }
 
     // creating level three enemies (bossbots)
-    for (let i = 1; i < numBossBots; i++) {
+    for (let i = 0; i < numBossBots; i++) {
         let bossBotX = random(0, width);
         let bossBotY = random(0, height / 3);
 
         let bossBot = new BossBot(bossBotX, bossBotY, bossBotImage);
         bossBots.push(bossBot);
+    }
+ 
+    // creating eggman
+    for(let i = 0; i < numEggmen; i++){
+        let eggmanX = random(200, 400);
+        let eggmanY = random(0, height / 3);
+
+        let eggman = new Eggman(eggmanX, eggmanY, eggmanImage);
+        eggmen.push(eggman);
     }
 
 }
@@ -155,8 +167,14 @@ function draw() {
             bossBot.display();
             bossBot.move();
         }
-
-
+        for(let eggman of eggmen){
+            for(let bullet of bullets){
+                enemyHit(eggman, bullet)
+            }
+            eggman.display();
+            eggman.move();
+        }
+        level3Win();
     }
     else if (state === `win`) {
         // win screen
@@ -167,6 +185,8 @@ function draw() {
         lose();
         background(0);
     }
+
+    noCursor();
 
 
 
@@ -186,11 +206,6 @@ function draw() {
     sonic.x = constrain(sonic.x, 0, width / 1.1);
     sonic.y = constrain(sonic.y, height / 1.55, height / 1.14);
 
-    // bossbot1.x = constrain(bossbot1.x, 0, 250);
-    // bossbot2.x = constrain(bossbot2.x, 450, 600);
-
-    // bossbot1.y = constrain(bossbot1.y, 350, 600);
-    // bossbot2.y = constrain(bossbot2.y, 350, 600);
 }
 
 function title() {
@@ -292,6 +307,13 @@ function level2Up() {
     }
 }
 
+function level3Win(){
+    // switching from level 3 to the win screen 
+    if (state === `level3` && countActiveBossBots() === 0 && countActiveEggman() === 0){
+        state = `win`
+    }
+}
+
 function countActiveEnemies() {
     // checking the array for how many buzzers are left
     let count = 0;
@@ -319,6 +341,17 @@ function countActiveBossBots() {
     let count = 0;
     for (let bossBot of bossBots) {
         if (bossBot.active) {
+            count += 1
+        }
+    }
+    return count;
+}
+
+function countActiveEggman(){
+    // checking if eggman is still alive
+    let count = 0;
+    for(let eggman of eggmen){
+        if(eggman.active){
             count += 1
         }
     }

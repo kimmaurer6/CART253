@@ -6,12 +6,12 @@ class BossBot {
         this.vy = 0;
         this.ax = 0;
         this.ay = 0;
-        this.speed = 7;
+        this.speed = 10;
         this.width = 90;
         this.height = 90;
         this.size = this.width;
         this.image = bossBotImage;
-        this.health = 4;
+        this.health = 3;
         this.active = true;
     }
 
@@ -34,7 +34,7 @@ class BossBot {
         this.x = this.x + this.vx;
         this.y = this.y + this.vy;
 
-        this.x = constrain(this.x, 0, 600);
-
+        this.x = constrain(this.x, 100, 600);
+        this.y = constrain(this.y, 100, height / 3);
     }
 }
