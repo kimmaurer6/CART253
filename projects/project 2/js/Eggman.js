@@ -6,7 +6,7 @@ class Eggman {
         this.vy = 0;
         this.ax = 0;
         this.ay = 0;
-        this.speed = 7;
+        this.speed = 4;
         this.width = 200;
         this.height = 200;
         this.size = this.width;
@@ -14,6 +14,7 @@ class Eggman {
         this.health = 15;
         this.active = true;
     }
+
     display() {
         if (this.active) {
             push();

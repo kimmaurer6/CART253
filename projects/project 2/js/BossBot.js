@@ -6,7 +6,7 @@ class BossBot {
         this.vy = 0;
         this.ax = 0;
         this.ay = 0;
-        this.speed = 10;
+        this.speed = 6;
         this.width = 90;
         this.height = 90;
         this.size = this.width;

@@ -6,6 +6,8 @@
 
 "use strict";
 
+let startTime = undefined;
+let duration = 10000;
 
 let sonic;
 let sonicImage;
@@ -46,6 +48,8 @@ let sonicLevel1Image;
 let sonicLevel2Image;
 let sonicLevel3Image;
 let levelUpImage;
+let gameOverImage;
+let winImage;
 
 
 let state = `title`;
@@ -63,6 +67,8 @@ function preload() {
     bossBotImage = loadImage(`assets/images/bossbot.png`);
     eggmanImage = loadImage(`assets/images/eggman.png`);
     levelUpImage = loadImage(`assets/images/levelup.png`);
+    gameOverImage = loadImage(`assets/images/gameover.png`);
+    winImage = loadImage(`assets/images/win.png`)
 }
 
 
@@ -78,9 +84,6 @@ function setup() {
     // introducing bullet class
     bullet = new Bullet();
     bullet.image = bulletImage;
-
-    let eggman = new Eggman();
-    eggmen.push(eggman);
 
     // creating level one enemies (buzzers)
     for (let i = 0; i < numEnemies; i++) {
@@ -110,15 +113,18 @@ function setup() {
         let bossBot = new BossBot(bossBotX, bossBotY, bossBotImage);
         bossBots.push(bossBot);
     }
- 
+
     // creating eggman
-    for(let i = 0; i < numEggmen; i++){
+    for (let i = 0; i < numEggmen; i++) {
         let eggmanX = random(200, 400);
         let eggmanY = random(0, height / 3);
 
         let eggman = new Eggman(eggmanX, eggmanY, eggmanImage);
         eggmen.push(eggman);
     }
+
+    let elapsed = millis() - startTime;
+
 
 }
 
@@ -144,7 +150,6 @@ function draw() {
     else if (state === `level2`) {
         // all things to be used / displayed in the second level
         level2();
-        // sonic.display();
         sonic.controlPlayer();
         for (let spinner of spinners) {
             for (let bullet of bullets) {
@@ -160,6 +165,7 @@ function draw() {
         level3();
         sonic.display();
         sonic.controlPlayer();
+
         for (let bossBot of bossBots) {
             for (let bullet of bullets) {
                 enemyHit(bossBot, bullet)
@@ -167,8 +173,8 @@ function draw() {
             bossBot.display();
             bossBot.move();
         }
-        for(let eggman of eggmen){
-            for(let bullet of bullets){
+        for (let eggman of eggmen) {
+            for (let bullet of bullets) {
                 enemyHit(eggman, bullet)
             }
             eggman.display();
@@ -229,12 +235,14 @@ function level1() {
     push();
     image(sonicLevel1Image, 0, 0, width, height);
     pop();
+
 }
 
 function nextLevel1() {
     // level up screen
     push()
-
+    image(levelUpImage, 0, 0, width, height);
+    pop();
 }
 
 function level2() {
@@ -254,27 +262,17 @@ function level3() {
 function lose() {
     // text and background for lose screen
     push();
-    background(0);
+    image(gameOverImage, 0, 0, width, height);
     pop();
 }
 
 function win() {
     // text and background for win screen
     push();
-    background(155);
+    image(winImage, 0, 0, width, height);
     pop();
 }
 
-// function enemyHit(enemy, bullet) {
-//     // when the enemy is hit twice, it dies
-//     let d = dist(bullet.x, bullet.y, enemy.x, enemy.y);
-//     if (d < enemy.size / 2.5 + bullet.size / 1) {
-//         enemy.health -= 1;
-//     };
-//     if (enemy.health <= 0) {
-//         enemy.active = false;
-//     }
-// }
 
 function enemyHit(spinner, bullet) {
     if (!spinner.active) {
@@ -307,9 +305,11 @@ function level2Up() {
     }
 }
 
-function level3Win(){
+function level3Win() {
     // switching from level 3 to the win screen 
-    if (state === `level3` && countActiveBossBots() === 0 && countActiveEggman() === 0){
+    if (state === `level3` && countActiveBossBots() === 0
+        && countActiveEggmen() === 0) {
+        // if (state === `level3` && countActiveBossBots() === 0) {
         state = `win`
     }
 }
@@ -347,15 +347,19 @@ function countActiveBossBots() {
     return count;
 }
 
-function countActiveEggman(){
+function countActiveEggmen() {
     // checking if eggman is still alive
     let count = 0;
-    for(let eggman of eggmen){
-        if(eggman.active){
+    for (let eggman of eggmen) {
+        if (eggman.active) {
             count += 1
         }
     }
     return count;
+}
+
+function checkGameOver() {
+
 }
 
 
@@ -364,4 +368,7 @@ function mousePressed() {
     if (state === `title`) {
         state = `level1`;
     }
+    startTime = millis();
+    // timer
+    setTimeout(checkGameOver, 10000);
 }
