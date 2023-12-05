@@ -147,6 +147,10 @@ function draw() {
         }
         level1Up();
     }
+    else if (state === `nextLevel1`) {
+        nextLevel1();
+        cutScene1();
+    }
     else if (state === `level2`) {
         // all things to be used / displayed in the second level
         level2();
@@ -159,6 +163,10 @@ function draw() {
             spinner.move();
         }
         level2Up();
+    }
+    else if(state === `nextLevel2`){
+        nextLevel2();
+        cutScene2();
     }
     else if (state === `level3`) {
         // all things to be used / displayed in the final level    
@@ -242,6 +250,24 @@ function nextLevel1() {
     // level up screen
     push()
     image(levelUpImage, 0, 0, width, height);
+
+    textSize(50);
+    fill(255);
+    textAlign(CENTER);
+    textFont(`Times New Roman`);
+    text(`LEVEL 2 \n where am i?... \n "enter" to continue `, width / 2, height / 2);
+    pop();
+}
+
+function nextLevel2(){
+    push();
+    image(levelUpImage, 0, 0, width, height);
+
+    textSize(50);
+    fill(255);
+    textAlign(CENTER);
+    textFont(`Times New Roman`);
+    text(`LEVEL 3 \n FINAL ENEMIES \n "enter" to continue `, width / 2, height / 2);
     pop();
 }
 
@@ -270,6 +296,12 @@ function win() {
     // text and background for win screen
     push();
     image(winImage, 0, 0, width, height);
+
+    textSize(50);
+    fill(255);
+    textAlign(CENTER);
+    textFont(`Times New Roman`);
+    text(`YOU WIN!!`, width / 2, height / 1.5);
     pop();
 }
 
@@ -293,7 +325,8 @@ function enemyHit(spinner, bullet) {
 function level1Up() {
     // the switch between level 1 and 2
     if (state === `level1` && countActiveEnemies() === 0) {
-        state = `level2`
+        // state = `level2`
+        state = `nextLevel1`
     }
     console.log(`yay`);
 }
@@ -301,7 +334,7 @@ function level1Up() {
 function level2Up() {
     // the switch between level 2 and 3
     if (state === `level2` && countActiveSpinners() === 0) {
-        state = `level3`
+        state = `nextLevel2`
     }
 }
 
@@ -371,4 +404,16 @@ function mousePressed() {
     startTime = millis();
     // timer
     setTimeout(checkGameOver, 10000);
+}
+
+function cutScene1(){
+    if(state === `nextLevel1` && keyCode === ENTER){
+        state = `level2`
+    }
+}
+
+function cutScene2(){
+    if(state === `nextLevel2` && keyCode === ENTER){
+        state = `level3`
+    };
 }
