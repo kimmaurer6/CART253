@@ -6,8 +6,8 @@
 
 "use strict";
 
-// let startTime = undefined;
-// let duration = 10000;
+let startTime = undefined;
+let duration = 30000;
 
 let sonic;
 let sonicImage;
@@ -86,10 +86,6 @@ function setup() {
     bullet = new Bullet();
     bullet.image = bulletImage;
 
-    // enemy bullets 
-    // enemyBullet = new EnemyBullet();
-    // enemyBullet.image = enemyBulletImage;
-
     // creating level one enemies (buzzers)
     for (let i = 0; i < numEnemies; i++) {
         let enemyX = random(0, width);
@@ -98,7 +94,6 @@ function setup() {
         // introducing enemy class
         let enemy = new Enemy(enemyX, enemyY, enemyImage);
         enemies.push(enemy);
-        //  enemy.image = enemyImage;
     }
 
     // creating level two enemies (spinners)
@@ -202,7 +197,6 @@ function draw() {
     else if (state === `lose`) {
         // lose screen
         lose();
-        background(0);
     }
 
     noCursor();
@@ -225,7 +219,7 @@ function draw() {
     sonic.x = constrain(sonic.x, 0, width / 1.1);
     sonic.y = constrain(sonic.y, height / 1.55, height / 1.14);
 
-    // let elapsed = millis() - startTime;
+    let elapsed = millis() - startTime;
 
 
 }
@@ -242,7 +236,14 @@ function title() {
     textAlign(CENTER);
     textFont(`Times New Roman`);
     text(`Sonic Invaders!!`, width / 2, height / 2);
+
+    textSize(50);
+    fill(255);
+    textAlign(LEFT);
+    textFont(`Times New Roman`);
+    text(`use WASD to move! \nuse the spacebar to shoot! \nCLICK TO START!`, 10, 600)
     pop();
+
 }
 
 
@@ -414,14 +415,23 @@ function countActiveEggmen() {
     return count;
 }
 
+function checkGameOver() {
+    if (numEggmen <= 0 && numBossBots <= 0) {
+        state = `win`
+    }
+    if (numEggmen > 0 && numBossBots > 0 || numSpinners > 0 || numEnemies > 0) {
+        state = `lose`
+    }
+}
+
 function mousePressed() {
     // game switches from title to level one when the mouse is pressed
     if (state === `title`) {
         state = `level1`;
     }
-    // startTime = millis();
-    // // timer
-    // setTimeout(checkGameOver, 10000);
+    startTime = millis();
+    // timer
+    setTimeout(checkGameOver, 30000);
 }
 
 function cutScene1() {
