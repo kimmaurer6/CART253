@@ -6,7 +6,7 @@ class Sonic {
         this.vy = 0;
         this.width = 100;
         this.height = 100;
-        this.speed = 5;
+        this.speed = 6;
         this.active = true;
         this.image = sonicImage;
         this.health = 2;

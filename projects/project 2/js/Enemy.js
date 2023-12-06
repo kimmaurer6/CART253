@@ -38,6 +38,17 @@ class Enemy {
         this.y = constrain(this.y, 100, height / 3);
 
         // this(this.x, this.y, this.size);
+        // if (cooldown === 0) {
+        //     enemyBullets.push(new EnemyBullet(this.x, this.y))
+        //     cooldown = cooldownFrames;
+        // }
+    }
+
+    shoot() {
+        if (keyCode === LEFT_ARROW) {
+            enemyBullets.push(new EnemyBullet(this.x, this.y))
+            cooldown = cooldownFrames;
+        }
     }
 }
 
