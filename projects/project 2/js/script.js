@@ -147,7 +147,6 @@ function draw() {
             enemy.display();
             enemy.move();
         }
-        // let elapsed = millis() - startTime;
 
         level1Up();
     }
@@ -175,7 +174,6 @@ function draw() {
     else if (state === `level3`) {
         // all things to be used / displayed in the final level    
         level3();
-        //sonic.display();
         sonic.controlPlayer();
 
         for (let bossBot of bossBots) {
@@ -232,7 +230,6 @@ function title() {
     // background for title screen
     push();
     image(sonicTitleImage, 0, 0, width, height);
-    // noStroke();
 
     // text for title screen
     textSize(50);
@@ -320,7 +317,6 @@ function lose() {
     // text and background for lose screen
     push();
     image(gameOverImage, 0, 0, width, height);
-
     pop();
 }
 
@@ -437,23 +433,6 @@ function checkGameOver() {
     if (numEggmen < 0 && numBossBots < 0 && numEnemies < 0 && numSpinners < 0) {
         state = `win`
     }
-    // else {
-    //     state = `lose`
-    // }
-    // if (elapsed > duration) {
-    //     state = `lose`;
-    // }
-
-    // else if (numEggmen > 0 && numBossBots > 0 ||
-    //     numEggmen > 0 && numBossBots > 0 && numSpinners > 0 ||
-    //     numEggmen > 0 && numBossBots > 0 && numSpinners > 0 && numEnemies > 0) {
-    //     state = `lose`
-    // }
-
-    // if (numEggmen > 0 || numBossBots > 0 || numSpinners > 0 || numEnemies > 0) {
-    //     state = `lose`
-    // }
-
 }
 
 function mousePressed() {
@@ -464,7 +443,6 @@ function mousePressed() {
         // start timer
         startTime = millis();
         setTimeout(checkGameOver, 45000);
-        // clearTimeout(checkGameOver, 45000);
     }
 
 }
