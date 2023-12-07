@@ -243,13 +243,19 @@ function title() {
     fill(255);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`Sonic Invaders!!`, width / 2, height / 2);
+    text(`Sonic Invaders!!`, 500, 90);
 
-    textSize(50);
+    textSize(45);
+    fill(255);
+    textAlign(CENTER);
+    textFont(`Times New Roman`);
+    text(`you have 45 seconds\nto save sonic!`, 470, 340)
+
+    textSize(45);
     fill(255);
     textAlign(LEFT);
     textFont(`Times New Roman`);
-    text(`use WASD to move! \nuse the spacebar to shoot! \nCLICK TO START!`, 10, 600)
+    text(`use WASD to move! \nuse the spacebar to shoot! \nCLICK TO START!`, 290, 600)
     pop();
 
 }
