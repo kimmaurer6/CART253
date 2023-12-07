@@ -39,12 +39,6 @@ class Enemy {
 
     }
 
-    shoot() {
-        if (keyCode === LEFT_ARROW) {
-            enemyBullets.push(new EnemyBullet(this.x, this.y))
-            cooldown = cooldownFrames;
-        }
-    }
 }
 
 
