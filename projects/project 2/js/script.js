@@ -7,7 +7,7 @@
 "use strict";
 
 let startTime = undefined;
-let duration = 30000;
+let duration = 45000;
 
 let sonic;
 let sonicImage;
@@ -123,7 +123,9 @@ function setup() {
         eggmen.push(eggman);
     }
 
-    // let elapsed = millis() - startTime;
+    let elapsed = millis() - startTime;
+    setTimeout(checkGameOver, 45000);
+
 
 
 }
@@ -145,6 +147,8 @@ function draw() {
             enemy.display();
             enemy.move();
         }
+        // let elapsed = millis() - startTime;
+
         level1Up();
     }
     else if (state === `nextLevel1`) {
@@ -249,6 +253,10 @@ function title() {
 
 function level1() {
     // background for level one
+    let elapsed = millis() - startTime;
+    if (elapsed > duration) {
+        state = `lose`;
+    }
     push();
     image(sonicLevel1Image, 0, 0, width, height);
     pop();
@@ -259,7 +267,10 @@ function nextLevel1() {
     // level up screen
     push()
     image(levelUpImage, 0, 0, width, height);
-
+    let elapsed = millis() - startTime;
+    if (elapsed > duration) {
+        state = `lose`;
+    }
     textSize(50);
     fill(255);
     textAlign(CENTER);
@@ -271,7 +282,10 @@ function nextLevel1() {
 function nextLevel2() {
     push();
     image(levelUpImage, 0, 0, width, height);
-
+    let elapsed = millis() - startTime;
+    if (elapsed > duration) {
+        state = `lose`;
+    }
     textSize(50);
     fill(255);
     textAlign(CENTER);
@@ -283,6 +297,10 @@ function nextLevel2() {
 function level2() {
     // background for level two
     push();
+    let elapsed = millis() - startTime;
+    if (elapsed > duration) {
+        state = `lose`;
+    }
     image(sonicLevel2Image, 0, 0, width, height);
     pop();
 }
@@ -291,6 +309,10 @@ function level3() {
     // background for level three
     push();
     image(sonicLevel3Image, 0, 0, width, height);
+    let elapsed = millis() - startTime;
+    if (elapsed > duration) {
+        state = `lose`;
+    }
     pop();
 }
 
@@ -298,6 +320,7 @@ function lose() {
     // text and background for lose screen
     push();
     image(gameOverImage, 0, 0, width, height);
+
     pop();
 }
 
@@ -331,28 +354,12 @@ function enemyHit(spinner, bullet) {
     }
 }
 
-// function userHit(sonic, enemyBullet) {
-//     if (!sonic.active) {
-//         return;
-//     }
-//     let d = dist(enemyBullet.x, enemyBullet.y, sonic.x, sonic.y);
-//     if (d < sonic.size / 2 + enemyBullet.size / 2) {
-//         sonic.health -= 1
-//         let index = enemyBullets.indexOf(enemyBullet);
-//         enemyBullets.splice(index, 1);
-//     }
-//     if (sonic.health <= 0) {
-//         sonic.active = false;
-//     }
-// }
 
 function level1Up() {
     // the switch between level 1 and 2
     if (state === `level1` && countActiveEnemies() === 0) {
-        // state = `level2`
         state = `nextLevel1`
     }
-    console.log(`yay`);
 }
 
 function level2Up() {
@@ -366,7 +373,6 @@ function level3Win() {
     // switching from level 3 to the win screen 
     if (state === `level3` && countActiveBossBots() === 0
         && countActiveEggmen() === 0) {
-        // if (state === `level3` && countActiveBossBots() === 0) {
         state = `win`
     }
 }
@@ -415,25 +421,6 @@ function countActiveEggmen() {
     return count;
 }
 
-function checkGameOver() {
-    if (numEggmen <= 0 && numBossBots <= 0) {
-        state = `win`
-    }
-    if (numEggmen > 0 && numBossBots > 0 || numSpinners > 0 || numEnemies > 0) {
-        state = `lose`
-    }
-}
-
-function mousePressed() {
-    // game switches from title to level one when the mouse is pressed
-    if (state === `title`) {
-        state = `level1`;
-    }
-    startTime = millis();
-    // timer
-    setTimeout(checkGameOver, 30000);
-}
-
 function cutScene1() {
     if (state === `nextLevel1` && keyCode === ENTER) {
         state = `level2`
@@ -444,4 +431,40 @@ function cutScene2() {
     if (state === `nextLevel2` && keyCode === ENTER) {
         state = `level3`
     };
+}
+
+function checkGameOver() {
+    if (numEggmen < 0 && numBossBots < 0 && numEnemies < 0 && numSpinners < 0) {
+        state = `win`
+    }
+    // else {
+    //     state = `lose`
+    // }
+    // if (elapsed > duration) {
+    //     state = `lose`;
+    // }
+
+    // else if (numEggmen > 0 && numBossBots > 0 ||
+    //     numEggmen > 0 && numBossBots > 0 && numSpinners > 0 ||
+    //     numEggmen > 0 && numBossBots > 0 && numSpinners > 0 && numEnemies > 0) {
+    //     state = `lose`
+    // }
+
+    // if (numEggmen > 0 || numBossBots > 0 || numSpinners > 0 || numEnemies > 0) {
+    //     state = `lose`
+    // }
+
+}
+
+function mousePressed() {
+    // game switches from title to level one when the mouse is pressed
+    if (state === `title`) {
+        state = `level1`;
+
+        // start timer
+        startTime = millis();
+        setTimeout(checkGameOver, 45000);
+        // clearTimeout(checkGameOver, 45000);
+    }
+
 }
