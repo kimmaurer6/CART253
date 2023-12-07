@@ -51,6 +51,8 @@ let levelUpImage;
 let gameOverImage;
 let winImage;
 
+let musicSFX;
+
 
 let state = `title`;
 
@@ -69,13 +71,17 @@ function preload() {
     eggmanImage = loadImage(`assets/images/eggman.png`);
     levelUpImage = loadImage(`assets/images/levelup.png`);
     gameOverImage = loadImage(`assets/images/gameover.png`);
-    winImage = loadImage(`assets/images/win.png`)
+    winImage = loadImage(`assets/images/win.png`);
+
+    soundFormats(`wav`);
+    musicSFX = loadSound(`assets/sounds/music.wav`);
 }
 
 
 
 function setup() {
-    createCanvas(1000, 730);
+    let cnv = createCanvas(1000, 730);
+    cnv.mousePressed(canvasPressed);
     image(sonicTitleImage);
 
     // introducing sonic class
@@ -126,6 +132,7 @@ function setup() {
     let elapsed = millis() - startTime;
     setTimeout(checkGameOver, 45000);
 
+    // userStartAudio();
 
 
 }
@@ -435,6 +442,10 @@ function checkGameOver() {
     }
 }
 
+function canvasPressed() {
+    musicSFX.play();
+
+}
 function mousePressed() {
     // game switches from title to level one when the mouse is pressed
     if (state === `title`) {
@@ -446,3 +457,4 @@ function mousePressed() {
     }
 
 }
+
