@@ -58,6 +58,7 @@ let state = `title`;
 
 function preload() {
     // all images used
+    // none of these images belong to me - all credit goes to their rightful owners!
     sonicImage = loadImage(`assets/images/sonic.png`);
     sonicTitleImage = loadImage(`assets/images/title-background.png`);
     sonicLevel1Image = loadImage(`assets/images/level1.png`);
@@ -74,6 +75,7 @@ function preload() {
     winImage = loadImage(`assets/images/win.png`);
 
     // sound
+    // this sound does not belong to me, it was found on a royalty free game music site - all credit to the rightful owners!
     soundFormats(`wav`);
     musicSFX = loadSound(`assets/sounds/music.wav`);
 }
