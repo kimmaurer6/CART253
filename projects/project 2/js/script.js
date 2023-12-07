@@ -73,6 +73,7 @@ function preload() {
     gameOverImage = loadImage(`assets/images/gameover.png`);
     winImage = loadImage(`assets/images/win.png`);
 
+    // sound
     soundFormats(`wav`);
     musicSFX = loadSound(`assets/sounds/music.wav`);
 }
@@ -107,6 +108,7 @@ function setup() {
         let spinnerX = random(0, width);
         let spinnerY = random(0, height / 3);
 
+        // introducing spinner class
         let spinner = new Spinner(spinnerX, spinnerY, spinnerImage);
         spinners.push(spinner);
     }
@@ -116,6 +118,7 @@ function setup() {
         let bossBotX = random(0, width);
         let bossBotY = random(0, height / 3);
 
+        // introducing bossbot class
         let bossBot = new BossBot(bossBotX, bossBotY, bossBotImage);
         bossBots.push(bossBot);
     }
@@ -125,14 +128,15 @@ function setup() {
         let eggmanX = random(200, 400);
         let eggmanY = random(0, height / 3);
 
+        // introducing eggman class
         let eggman = new Eggman(eggmanX, eggmanY, eggmanImage);
         eggmen.push(eggman);
     }
 
+    // timer check
     let elapsed = millis() - startTime;
     setTimeout(checkGameOver, 45000);
 
-    // userStartAudio();
 
 
 }
@@ -167,7 +171,7 @@ function draw() {
         sonic.controlPlayer();
         for (let spinner of spinners) {
             for (let bullet of bullets) {
-                enemyHit(spinner, bullet)
+                enemyHit(spinner, bullet);
             }
             spinner.display();
             spinner.move();
@@ -185,14 +189,14 @@ function draw() {
 
         for (let bossBot of bossBots) {
             for (let bullet of bullets) {
-                enemyHit(bossBot, bullet)
+                enemyHit(bossBot, bullet);
             }
             bossBot.display();
             bossBot.move();
         }
         for (let eggman of eggmen) {
             for (let bullet of bullets) {
-                enemyHit(eggman, bullet)
+                enemyHit(eggman, bullet);
             }
             eggman.display();
             eggman.move();
@@ -208,9 +212,8 @@ function draw() {
         lose();
     }
 
+    // remove cursor
     noCursor();
-
-
 
     // constrains how many bullets are shot at once
     cooldown = constrain(cooldown - 1, 0, cooldownFrames);
@@ -223,14 +226,12 @@ function draw() {
         }
     }
 
-
     // constrain player to the screen
     sonic.x = constrain(sonic.x, 0, width / 1.1);
     sonic.y = constrain(sonic.y, height / 1.55, height / 1.14);
 
+    // timer
     let elapsed = millis() - startTime;
-
-
 }
 
 function title() {
@@ -249,24 +250,26 @@ function title() {
     fill(255);
     textAlign(CENTER);
     textFont(`Times New Roman`);
-    text(`you have 45 seconds\nto save sonic!`, 470, 340)
+    text(`you have 45 seconds\nto save sonic!`, 470, 340);
 
     textSize(45);
     fill(255);
     textAlign(LEFT);
     textFont(`Times New Roman`);
-    text(`use WASD to move! \nuse the spacebar to shoot! \nCLICK TO START!`, 290, 600)
+    text(`use WASD to move! \nuse the spacebar to shoot! \nCLICK TO START!`, 290, 600);
     pop();
 
 }
 
 
 function level1() {
-    // background for level one
+    // check if time has surpassed the duration
     let elapsed = millis() - startTime;
     if (elapsed > duration) {
         state = `lose`;
     }
+
+    // background for level one
     push();
     image(sonicLevel1Image, 0, 0, width, height);
     pop();
@@ -277,10 +280,14 @@ function nextLevel1() {
     // level up screen
     push()
     image(levelUpImage, 0, 0, width, height);
+
+    // check if time has surpassed the duration
     let elapsed = millis() - startTime;
     if (elapsed > duration) {
         state = `lose`;
     }
+
+    // text for level up
     textSize(50);
     fill(255);
     textAlign(CENTER);
@@ -292,10 +299,14 @@ function nextLevel1() {
 function nextLevel2() {
     push();
     image(levelUpImage, 0, 0, width, height);
+
+    // check if time has surpassed the duration
     let elapsed = millis() - startTime;
     if (elapsed > duration) {
         state = `lose`;
     }
+
+    // text for level up
     textSize(50);
     fill(255);
     textAlign(CENTER);
@@ -307,10 +318,13 @@ function nextLevel2() {
 function level2() {
     // background for level two
     push();
+
+    // check if time has surpassed the duration
     let elapsed = millis() - startTime;
     if (elapsed > duration) {
         state = `lose`;
     }
+    // image background
     image(sonicLevel2Image, 0, 0, width, height);
     pop();
 }
@@ -318,7 +332,10 @@ function level2() {
 function level3() {
     // background for level three
     push();
+    // image
     image(sonicLevel3Image, 0, 0, width, height);
+
+    // check if time has surpassed the duration
     let elapsed = millis() - startTime;
     if (elapsed > duration) {
         state = `lose`;
@@ -327,7 +344,7 @@ function level3() {
 }
 
 function lose() {
-    // text and background for lose screen
+    // background for lose screen
     push();
     image(gameOverImage, 0, 0, width, height);
     pop();
@@ -367,14 +384,14 @@ function enemyHit(spinner, bullet) {
 function level1Up() {
     // the switch between level 1 and 2
     if (state === `level1` && countActiveEnemies() === 0) {
-        state = `nextLevel1`
+        state = `nextLevel1`;
     }
 }
 
 function level2Up() {
     // the switch between level 2 and 3
     if (state === `level2` && countActiveSpinners() === 0) {
-        state = `nextLevel2`
+        state = `nextLevel2`;
     }
 }
 
@@ -382,7 +399,7 @@ function level3Win() {
     // switching from level 3 to the win screen 
     if (state === `level3` && countActiveBossBots() === 0
         && countActiveEggmen() === 0) {
-        state = `win`
+        state = `win`;
     }
 }
 
@@ -391,7 +408,7 @@ function countActiveEnemies() {
     let count = 0;
     for (let enemy of enemies) {
         if (enemy.active) {
-            count += 1
+            count += 1;
         }
     }
     return count;
@@ -402,7 +419,7 @@ function countActiveSpinners() {
     let count = 0;
     for (let spinner of spinners) {
         if (spinner.active) {
-            count += 1
+            count += 1;
         }
     }
     return count;
@@ -413,7 +430,7 @@ function countActiveBossBots() {
     let count = 0;
     for (let bossBot of bossBots) {
         if (bossBot.active) {
-            count += 1
+            count += 1;
         }
     }
     return count;
@@ -424,31 +441,35 @@ function countActiveEggmen() {
     let count = 0;
     for (let eggman of eggmen) {
         if (eggman.active) {
-            count += 1
+            count += 1;
         }
     }
     return count;
 }
 
 function cutScene1() {
+    // transition between level up screen and next level
     if (state === `nextLevel1` && keyCode === ENTER) {
-        state = `level2`
+        state = `level2`;
     }
 }
 
 function cutScene2() {
+    // transition between level up screen and next level
     if (state === `nextLevel2` && keyCode === ENTER) {
-        state = `level3`
+        state = `level3`;
     };
 }
 
 function checkGameOver() {
+    // has the game been won?
     if (numEggmen < 0 && numBossBots < 0 && numEnemies < 0 && numSpinners < 0) {
-        state = `win`
+        state = `win`;
     }
 }
 
 function canvasPressed() {
+    // when the canvas is pressed, music begins
     musicSFX.play();
 
 }
@@ -461,6 +482,5 @@ function mousePressed() {
         startTime = millis();
         setTimeout(checkGameOver, 45000);
     }
-
 }
 

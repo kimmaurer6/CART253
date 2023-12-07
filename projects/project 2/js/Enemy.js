@@ -29,7 +29,6 @@ class Enemy {
 
         if (change < 0.01) {
             this.vx = random(-this.speed, this.speed);
-            //this.vy = random(-this.speed, this.speed);
         }
         this.x = this.x + this.vx;
         this.y = this.y + this.vy;
@@ -37,11 +36,7 @@ class Enemy {
         this.x = constrain(this.x, 100, 600);
         this.y = constrain(this.y, 100, height / 3);
 
-        // this(this.x, this.y, this.size);
-        // if (cooldown === 0) {
-        //     enemyBullets.push(new EnemyBullet(this.x, this.y))
-        //     cooldown = cooldownFrames;
-        // }
+
     }
 
     shoot() {
