@@ -175,7 +175,7 @@ function game() {
     move();
     controlUser();
     display();
-    mousePressed();
+    //mousePressed();
     fan();
     paparazzi();
     love()
