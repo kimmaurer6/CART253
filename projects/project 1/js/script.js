@@ -164,6 +164,7 @@ function title() {
 }
 
 function game() {
+    mousePressed();
     // background for the game
     background(195, 177, 225);
 
@@ -175,7 +176,7 @@ function game() {
     move();
     controlUser();
     display();
-    mousePressed();
+    // mousePressed();
     fan();
     paparazzi();
     love()
