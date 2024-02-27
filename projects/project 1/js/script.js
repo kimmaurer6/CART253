@@ -160,6 +160,8 @@ function title() {
     textFont(`Times New Roman`);
     text(`Help Taylor escape the paparazzi and crazy Swiftie!\n Click the screen to begin!`, windowWidth / 2, windowHeight / 2);
     pop()
+
+    mousePressed();
 }
 
 function game() {
