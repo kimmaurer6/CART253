@@ -327,9 +327,9 @@ function controlUser(){
     user.y += user.vy;
 }
 
-// function mousePressed(){
-//     // when user clicks the title screen, the game starts!
-//     if (state === `title`) {
-//         state = `game`;
-//     }
-// }
+function mousePressed(){
+    // when user clicks the title screen, the game starts!
+    if (state === `title`) {
+        state = `game`;
+    }
+}
