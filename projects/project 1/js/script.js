@@ -94,6 +94,7 @@ function setup() {
     heart.x = windowWidth / 1.15 + heart.size / 2;
     heart.y = windowHeight / 1.3 + heart.size / 2
     noCursor();
+    mousePressed();
 }
 
 function setupCircles() {
@@ -160,8 +161,6 @@ function title() {
     textFont(`Times New Roman`);
     text(`Help Taylor escape the paparazzi and crazy Swiftie!\n Click the screen to begin!`, windowWidth / 2, windowHeight / 2);
     pop()
-
-    mousePressed();
 }
 
 function game() {
