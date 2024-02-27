@@ -94,7 +94,7 @@ function setup() {
     heart.x = windowWidth / 1.15 + heart.size / 2;
     heart.y = windowHeight / 1.3 + heart.size / 2
     noCursor();
-    mousePressed();
+
 }
 
 function setupCircles() {
@@ -175,7 +175,7 @@ function game() {
     move();
     controlUser();
     display();
-    //mousePressed();
+    mousePressed();
     fan();
     paparazzi();
     love()
